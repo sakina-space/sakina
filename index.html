@@ -1,280 +1,194 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سَكينة | فضفض هنا بأمان</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #f0f7f6 0%, #d1eee8 100%);
-            color: #2d3436;
-            line-height: 1.9;
-            min-height: 100vh;
-        }
-        header {
-            background: rgba(255,255,255,0.97);
-            padding: 3rem 1rem;
-            text-align: center;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
-        }
-        h1 {
-            font-family: 'Amiri', serif;
-            font-size: 4rem;
-            color: #004d40;
-            margin-bottom: 0.5rem;
-        }
-        .subtitle {
-            font-size: 1.5rem;
-            color: #00695c;
-            font-weight: 300;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .card {
-            background: white;
-            margin: 2rem 0;
-            padding: 2.5rem;
-            border-radius: 25px;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.09);
-            text-align: center;
-        }
-        .quote {
-            font-family: 'Amiri', serif;
-            font-size: 1.9rem;
-            color: #004d40;
-            margin: 2rem 0;
-            line-height: 2.2;
-        }
-        .chat-box {
-            background: #f8fffe;
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: inset 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .messages {
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 1rem;
-            background: white;
-            border-radius: 15px;
-            margin: 1rem 0;
-            text-align: right;
-        }
-        .user-msg {
-            background: #e0f2f1;
-            padding: 0.8rem 1.2rem;
-            border-radius: 18px;
-            margin: 0.5rem 0;
-            display: inline-block;
-            max-width: 80%;
-        }
-        .ai-msg {
-            background: #b2dfdb;
-            padding: 0.8rem 1.2rem;
-            border-radius: 18px;
-            margin: 0.5rem 0;
-            display: inline-block;
-            max-width: 80%;
-        }
-        .btn {
-            background: #004d40;
-            color: white;
-            border: none;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin: 0.5rem;
-        }
-        .audio-btn {
-            background: #00695c;
-            padding: 1.2rem 2.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-        .audio-btn::before {
-            content: "🔊";
-            margin-left: 0.8rem;
-            font-size: 1.5rem;
-        }
-        footer {
-            text-align: center;
-            padding: 4rem 1rem;
-            color: #004d40;
-            font-size: 1.1rem;
-        }
-        .quotes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        .quote-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-        .quote-type {
-            font-size: 0.9rem;
-            color: #004d40;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>سَكينة | مساحة هدوءك</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, #f0f7f6, #d1eee8);
+      margin: 0;
+      padding-bottom: 100px;
+      text-align: center;
+      color: #2c3e50;
+      line-height: 1.8;
+    }
+    header, footer {
+      background: #ffffff;
+      padding: 2rem 1rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    h1 { color: #004d40; font-size: 2.5rem; margin: 0; }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 1rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 25px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+    }
+    .btn {
+      background: #00796b;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      margin: 1rem 0.5rem;
+      cursor: pointer;
+    }
+    .messages {
+      background: #fefefe;
+      border-radius: 15px;
+      padding: 1rem;
+      max-height: 300px;
+      overflow-y: auto;
+      text-align: right;
+    }
+    .user-msg, .ai-msg {
+      padding: 0.7rem 1rem;
+      border-radius: 15px;
+      margin: 0.5rem;
+      display: inline-block;
+      max-width: 80%;
+    }
+    .user-msg { background: #e0f2f1; }
+    .ai-msg { background: #d0f0c0; }
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 15px;
+      border: 2px solid #b2dfdb;
+      font-size: 1rem;
+      font-family: 'Tajawal', sans-serif;
+    }
+    audio {
+      margin-top: 10px;
+    }
+    .eng { display: none; direction: ltr; text-align: left; font-family: sans-serif; }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>سَكينة</h1>
-        <p class="subtitle">مساحتك الآمنة للفضفضة والراحة</p>
-    </header>
+  <header>
+    <h1 id="title-ar">سَكينة</h1>
+    <h1 id="title-en" class="eng">Sakina – Your Calm Space</h1>
+    <p>مساحتك الآمنة للفضفضة والراحة النفسية</p>
+    <button onclick="switchLanguage()" class="btn">🌍 تبديل اللغة / Switch</button>
+  </header>
 
-    <div class="container">
+  <div class="container">
 
-        <div class="card">
-            <p class="quote" id="dailyQuote">جاري تحميل اقتباس اليوم...</p>
-            <button class="btn audio-btn" onclick="playEncouragement()">استمع لكلمة من القلب</button>
-        </div>
-
-        <div class="card">
-            <h2>كلمات اليوم لك</h2>
-            <div class="quotes-grid" id="quotesContainer"></div>
-        </div>
-
-        <div class="card chat-box">
-            <h2>فضفض لي الآن</h2>
-            <p>اكتب اللي جواك... أنا هنا أسمعك بكل قلبي</p>
-
-            <div class="messages" id="messages">
-                <div class="ai-msg">مرحباً يا قلبي... أنا سَكينة، كيف حالك اليوم؟ 💙</div>
-            </div>
-
-            <textarea id="userInput" rows="3" placeholder="اكتب اللي نفسك تقوله... أنا هنا"></textarea>
-            <button class="btn" onclick="sendMessage()">إرسال</button>
-        </div>
-
+    <!-- زر استماع -->
+    <div class="card">
+      <button class="btn" onclick="playTodayVoice()">🔊 استمع لكلمة من القلب</button>
+      <p style="margin-top: 1rem" id="voiceText"></p>
     </div>
 
-    <footer>
-        <p>سَكينة دايماً موجودة لك، في أي وقت، في أي لحظة</p>
-        <p>«فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا»</p>
-    </footer>
+    <!-- فضفضة -->
+    <div class="card">
+      <h2>فضفض لي الآن 💌</h2>
+      <div class="messages" id="messages">
+        <div class="ai-msg">مرحباً، خذ راحتك... وش بخاطرك؟</div>
+      </div>
+      <textarea id="userInput" rows="2" placeholder="اكتب اللي بخاطرك..."></textarea>
+      <button class="btn" onclick="sendMessage()">إرسال</button>
+    </div>
 
-    <script>
-        const voiceTexts = [
-            "أنت أقوى مما تظن... كل اللي بتمر بيه اليوم هيخليك أقوى بكرة",
-            "مهما طال الليل، الفجر قادم... ومعاه كل الأمل",
-            "مسموح لك تكون ضعيف اليوم... الضعف مش عيب، الاستمرار هو البطولة",
-            "اللي جواك ده مش ضعف... ده إنك لسه حاسس، ولسه عندك قلب",
-            "أحياناً الدموع بتغسل القلب... خليها تطلع، أنت تستاهل الراحة",
-            "أنت مش لوحدك... أنا هنا، وفيه ناس كتير بتحبك حتى لو ما قالوش"
-        ];
+    <!-- تمارين استرخاء -->
+    <div class="card">
+      <h2 id="relax-ar">🧘‍♀️ تمارين الاسترخاء</h2>
+      <h2 id="relax-en" class="eng">🧘‍♀️ Relaxation Exercises</h2>
 
-        function playEncouragement() {
-            const randomIndex = Math.floor(Math.random() * voiceTexts.length);
-            const text = voiceTexts[randomIndex];
+      <p id="relax-text-ar">✨ تنفس ٤-٧-٨: شهيق 4 ثواني، احبس النفس 7، وزفير بطيء 8 ثواني.</p>
+      <p id="relax-text-en" class="eng">✨ Breathe 4-7-8: Inhale 4 sec, hold 7, slow exhale 8 sec.</p>
+      <audio controls>
+        <source src="https://cdn.pixabay.com/audio/2022/05/30/audio_8c0c66e25b.mp3" type="audio/mp3" />
+      </audio>
 
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ar-SA';
-                window.speechSynthesis.cancel();
-                window.speechSynthesis.speak(utterance);
-            }
+      <p id="relax2-ar">🌿 تخيّل نفسك بمكان هادئ: بحر، شمس دافيه، صوت موج خفيف.</p>
+      <p id="relax2-en" class="eng">🌿 Imagine being near the sea, warm breeze, soft waves.</p>
+      <audio controls>
+        <source src="https://cdn.pixabay.com/audio/2022/05/31/audio_0223e90743.mp3" type="audio/mp3" />
+      </audio>
 
-            const messagesDiv = document.getElementById("messages");
-            const aiDiv = document.createElement("div");
-            aiDiv.className = "ai-msg";
-            aiDiv.innerHTML = `<strong>🔊</strong> ${text}`;
-            messagesDiv.appendChild(aiDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
+      <p id="relax3-ar">💆‍♀️ استرخي عضلاتك من رجليك لرأسك... شد، عد 5، ثم ريّح.</p>
+      <p id="relax3-en" class="eng">💆‍♀️ Loosen up... tense each part, hold for 5 sec, release.</p>
+    </div>
+  </div>
 
-        const mainQuotes = [
-            "مهما طال الليل، الفجر قادم",
-            "أنت أقوى مما تظن، وما تمر به الآن لن يدوم",
-            "مسموح لك تبكي، مسموح لك تتعب، ومسموح لك ترتاح",
-            "كل خطوة صغيرة إلى الأمام هي انتصار",
-            "الأيام الصعبة هي التي تصنع القصص الجميلة",
-            "لا تقارن فصولك الصعبة بفصول الآخرين الجميلة",
-            "أنت لست مكسوراً... أنت تمر فقط بمرحلة إعادة بناء",
-            "الأمل هو ذلك الشيء الصغير الذي ينقذنا"
-        ];
+  <footer>
+    <p>© 2024 سَكينة | Sakina – مساحة راحة نفسية لكل القلوب</p>
+  </footer>
 
-        const dailyQuotes = {
-            تشجيعية: ["كل يوم هو فرصة جديدة للبدء من جديد", "الضغط الذي تشعر به اليوم سيحولك إلى ألماس غداً", "الليال الصعبة تنتج نجوماً أكثر لمعاناً"],
-            مرحة: ["إذا كانت الحياة تعطيك ليمون، اعمله عصير واشربه!", "أنا لست كسولاً... أنا في وضعية توفير الطاقة!", "الحياة قصيرة جداً لتكون جاداً طوال الوقت... ضحك قليلاً!"],
-            عاطفية: ["أحياناً لا نحتاج لمن يحل مشاكلنا... فقط لمن يقول 'أنا هنا'", "الدموع ليست علامة ضعف... هي دليل على أنك حاولت بقوة", "القلب مثل الكوب... يجب أن يفرغ أحياناً ليتمكن من استقبال جديد"]
-        };
+  <script>
+    const voiceData = [
+      {
+        text: "أنا معك، لا تشيلين هم... احكي، يمكن نقدر نخفف مع بعض.",
+        url: "https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio1.mp3"
+      },
+      {
+        text: "مهما شعرتي، أنا هنا ببساطة أسمعك... وكلك مقبول.",
+        url: "https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio2.mp3"
+      },
+      {
+        text: "خذي نفس... وخلّي قلبك يرتاح شوي، أنا معك.",
+        url: "https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio3.mp3"
+      }
+    ];
 
-        function showDailyQuotes() {
-            document.getElementById('dailyQuote').textContent = `"${mainQuotes[Math.floor(Math.random() * mainQuotes.length)]}"`;
-            const container = document.getElementById('quotesContainer');
-            container.innerHTML = '';
-            for (const [type, quotes] of Object.entries(dailyQuotes)) {
-                const quoteCard = document.createElement('div');
-                quoteCard.className = 'quote-card';
-                const randomIndex = Math.floor(Math.random() * quotes.length);
-                quoteCard.innerHTML = `<div class="quote-type">${type}</div><p>"${quotes[randomIndex]}"</p>`;
-                container.appendChild(quoteCard);
-            }
-        }
+    function playTodayVoice() {
+      const day = new Date().getDate() % voiceData.length;
+      const audio = new Audio(voiceData[day].url);
+      document.getElementById("voiceText").textContent = `💬 "${voiceData[day].text}"`;
+      audio.play();
+    }
 
-        const responses = [
-            "أنا سامعك بكل قلبي... كمل اللي جواك",
-            "شكراً إنك شاركتني... أنت شجاع جداً",
-            "أحياناً الكلام يخفف كتير... أنا فخور بيك",
-            "مهما كان اللي حاسس بيه، هو مؤقت... وأنت أكبر منه",
-            "أنا هنا معاك، مش هتحس بالوحدة أبداً",
-            "خذ نفس عميق... أنت غالي ومهم وتستاهل كل خير",
-            "كل اللي جواك له حق يطلع... أنا هنا أستقبله كله بحب",
-            "أحياناً الدموع بتغسل القلب... خليها تطلع لو عايزة",
-            "أنت مش لوحدك أبداً... أنا معاك في كل لحظة",
-            "بكرة هيبقى أحسن... واللي جاي أجمل بإذن الله"
-        ];
+    const responses = [
+      "أسمعك، وش أكثر شيء يشغلك؟",
+      "كل اللي تحس فيه مهم... كلماتي بسيطة، بس أنا صدقًا معك.",
+      "ودك نحاول نحلها؟ أو بس تحب تفضفض؟ أنا ما أضغط.",
+      "أحيانًا الكلام يخفف كثير، استمر أنا مهتم بكلامك.",
+      "خلنا نبدي بخطوة... متى آخر مرة حسّيت براحة؟",
+      "أنت مفروض تكون بخير، بس الدنيا مو سهلة... وأنا مدري وش صار لك، بس ودّي أسمع.",
+      "أنا جاهز أسمع حتى لو ما عرفت أرد، حضورك يكفي."
+    ];
 
-        function sendMessage() {
-            const input = document.getElementById("userInput");
-            const message = input.value.trim();
-            if (!message) return;
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const msg = input.value.trim();
+      if (!msg) return;
+      const box = document.getElementById("messages");
 
-            const messagesDiv = document.getElementById("messages");
-            const userDiv = document.createElement("div");
-            userDiv.className = "user-msg";
-            userDiv.textContent = message;
-            messagesDiv.appendChild(userDiv);
+      const user = document.createElement("div");
+      user.className = "user-msg";
+      user.textContent = msg;
+      box.appendChild(user);
 
-            setTimeout(() => {
-                const aiDiv = document.createElement("div");
-                aiDiv.className = "ai-msg";
-                aiDiv.textContent = responses[Math.floor(Math.random() * responses.length)];
-                messagesDiv.appendChild(aiDiv);
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            }, 800);
+      setTimeout(() => {
+        const ai = document.createElement("div");
+        ai.className = "ai-msg";
+        ai.textContent = responses[Math.floor(Math.random() * responses.length)];
+        box.appendChild(ai);
+        box.scrollTop = box.scrollHeight;
+      }, 800);
 
-            input.value = "";
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
+      input.value = "";
+    }
 
-        document.getElementById("userInput").addEventListener("keypress", function(e) {
-            if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
+    function switchLanguage() {
+      const elements = document.querySelectorAll(".eng, #title-en, #relax-en, #relax-text-en, #relax2-en, #relax3-en");
+      const arElements = document.querySelectorAll("#title-ar, #relax-ar, #relax-text-ar, #relax2-ar, #relax3-ar");
+      elements.forEach(e => e.style.display = e.style.display === "block" ? "none" : "block");
+      arElements.forEach(e => e.style.display = e.style.display === "none" ? "block" : "none");
+    }
+  </script>
 
-        showDailyQuotes();
-        setInterval(showDailyQuotes, 24 * 60 * 60 * 1000);
-    </script>
 </body>
 </html>
