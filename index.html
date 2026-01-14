@@ -3,207 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ملاذك الآمن | مساحتك للهدوء</title>
+    <title>ملاذك الآمن | Safe Haven</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
+            transition: all 0.5s ease;
         }
-        .breathing-circle {
-            transition: all 4s ease-in-out;
+        
+        /* English Font Override */
+        body[dir="ltr"] {
+            font-family: 'Quicksand', sans-serif;
         }
-        .scale-up {
-            transform: scale(1.5);
+
+        /* Night Sky Background */
+        .night-bg {
+            background: linear-gradient(to bottom, #0f172a, #1e1b4b, #312e81);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
         }
-        .scale-down {
-            transform: scale(1);
+
+        /* Stars Animation */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: transparent;
+            z-index: -1;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        /* Rain Animation */
+        .rain {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background-image: url('https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/rain.png');
+            animation: rain 1.5s linear infinite;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+        .rain.active {
+            opacity: 0.4;
+        }
+        @keyframes rain {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 1000px; }
+        }
+
+        .breathing-circle { transition: all 4s ease-in-out; }
+        .scale-up { transform: scale(1.5); }
+        .scale-down { transform: scale(1); }
+        
+        /* Chat Scrollbar */
+        .chat-scroll::-webkit-scrollbar { width: 6px; }
+        .chat-scroll::-webkit-scrollbar-thumb { background-color: #4b5563; border-radius: 10px; }
+        .chat-scroll::-webkit-scrollbar-track { background-color: transparent; }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800">
+<body class="text-white relative min-h-screen overflow-x-hidden">
+
+    <!-- Background Elements -->
+    <div class="night-bg"></div>
+    <div id="starsContainer" class="stars"></div>
+    <div id="rainEffect" class="rain active"></div>
+    
+    <!-- Audio Elements -->
+    <!-- Rain Sound (Loop) -->
+    <audio id="rainAudio" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/07/04/audio_06d33010b4.mp3" type="audio/mp3">
+    </audio>
 
     <!-- Header / Navbar -->
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-stone-100">
+    <nav class="glass-panel sticky top-0 z-50 shadow-lg border-b border-white/10">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white">
+                <div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white shadow-[0_0_15px_rgba(99,102,241,0.5)]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                 </div>
-                <span class="text-xl font-bold text-teal-800 tracking-wide">ملاذك الآمن</span>
+                <span class="text-xl font-bold text-indigo-100 tracking-wide" data-key="siteName">ملاذك الآمن</span>
             </div>
-            <ul class="hidden md:flex gap-8 text-stone-600 font-medium">
-                <li><a href="#home" class="hover:text-teal-600 transition">الرئيسية</a></li>
-                <li><a href="#breathing" class="hover:text-teal-600 transition">تمرين التنفس</a></li>
-                <li><a href="#affirmations" class="hover:text-teal-600 transition">رسائل إيجابية</a></li>
-                <li><a href="#contact" class="hover:text-teal-600 transition">تواصل معنا</a></li>
-            </ul>
-            <button class="md:hidden text-stone-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
+            
+            <div class="flex items-center gap-4">
+                <!-- Rain Toggle -->
+                <button onclick="toggleRain()" id="rainBtn" class="p-2 rounded-full hover:bg-white/10 text-indigo-200 transition" title="تبديل صوت المطر">
+                    <svg id="rainIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /> <!-- Placeholder for Play -->
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+
+                <!-- Lang Switcher -->
+                <button onclick="toggleLang()" class="px-3 py-1 rounded-full border border-indigo-400/30 text-sm font-bold text-indigo-200 hover:bg-indigo-900/50 transition">
+                    <span id="langLabel">English</span>
+                </button>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header id="home" class="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-teal-50 via-stone-50 to-orange-50">
-        <div class="container mx-auto px-6 text-center relative z-10">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-stone-800 mb-6 leading-tight">
-                استعد توازنك <span class="text-teal-600">النفسي والروحي</span>
-            </h1>
-            <p class="text-lg md:text-xl text-stone-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-                في خضم ضجيج الحياة، "ملاذك الآمن" هو مساحتك الخاصة للهدوء، التأمل، والعثور على السلام الداخلي الذي تستحقه.
-            </p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="#breathing" class="px-8 py-3 bg-teal-600 text-white rounded-full font-bold shadow-lg hover:bg-teal-700 transition transform hover:-translate-y-1">
-                    ابدأ رحلة الهدوء
-                </a>
-                <a href="#affirmations" class="px-8 py-3 bg-white text-teal-600 border border-teal-200 rounded-full font-bold shadow-sm hover:bg-teal-50 transition">
-                    رسالتك اليومية
-                </a>
-            </div>
+    <header id="home" class="relative py-20 lg:py-28 text-center px-6">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight drop-shadow-lg" data-key="heroTitle">
+            استعد توازنك <span class="text-indigo-400">تحت ضوء النجوم</span>
+        </h1>
+        <p class="text-lg md:text-xl text-indigo-100 max-w-2xl mx-auto mb-10 leading-relaxed opacity-90" data-key="heroSubtitle">
+            مساحتك الهادئة للتخلص من أعباء اليوم، التحدث بقلب مفتوح، وإيجاد السكينة.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <a href="#ai-companion" class="px-8 py-3 bg-indigo-600 text-white rounded-full font-bold shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:bg-indigo-700 transition transform hover:-translate-y-1" data-key="btnChat">
+                تحدث معي
+            </a>
+            <a href="#breathing" class="px-8 py-3 glass-panel text-indigo-100 border border-indigo-500/30 rounded-full font-bold shadow-sm hover:bg-white/10 transition" data-key="btnBreathe">
+                تمرين التنفس
+            </a>
         </div>
-        <!-- Decorative blobs -->
-        <div class="absolute top-0 left-0 w-64 h-64 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div class="absolute top-0 right-0 w-64 h-64 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
     </header>
 
-    <!-- Features Section -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-stone-800 mb-4">ماذا نقدم لك؟</h2>
-                <div class="w-16 h-1 bg-teal-500 mx-auto rounded"></div>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-10">
-                <!-- Feature 1 -->
-                <div class="p-8 rounded-2xl bg-stone-50 hover:bg-teal-50 transition border border-stone-100 hover:border-teal-100 group">
-                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-teal-600 shadow-sm mb-6 group-hover:scale-110 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
+    <!-- AI Companion Section -->
+    <section id="ai-companion" class="py-16">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <div class="glass-panel rounded-3xl overflow-hidden shadow-2xl flex flex-col h-[600px]">
+                <!-- Chat Header -->
+                <div class="bg-indigo-900/60 p-4 border-b border-white/10 flex items-center gap-3">
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-indigo-600 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-indigo-900"></span>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-stone-800">تصفية الذهن</h3>
-                    <p class="text-stone-600 leading-relaxed">أدوات وتقنيات تساعدك على التخلص من التشتت والتركيز على اللحظة الحالية.</p>
+                    <div>
+                        <h3 class="font-bold text-white" data-key="botName">رفيقك الهادئ</h3>
+                        <p class="text-xs text-indigo-300" data-key="botStatus">يستمع إليك الآن...</p>
+                    </div>
                 </div>
 
-                <!-- Feature 2 -->
-                <div class="p-8 rounded-2xl bg-stone-50 hover:bg-teal-50 transition border border-stone-100 hover:border-teal-100 group">
-                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-teal-600 shadow-sm mb-6 group-hover:scale-110 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
+                <!-- Chat Messages Area -->
+                <div id="chatMessages" class="flex-1 p-6 overflow-y-auto chat-scroll flex flex-col gap-4">
+                    <!-- Intro Message -->
+                    <div class="flex justify-start">
+                        <div class="bg-indigo-800/80 text-indigo-50 rounded-2xl rounded-tr-none px-4 py-3 max-w-[85%] shadow-md">
+                            <p data-key="botIntro">أهلاً بك. المكان هنا آمن تماماً. كيف تشعر في هذه اللحظة؟</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-stone-800">دعم ذاتي</h3>
-                    <p class="text-stone-600 leading-relaxed">عبارات ومقالات لتعزيز ثقتك بنفسك وتذكيرك بقيمتك الحقيقية.</p>
                 </div>
 
-                <!-- Feature 3 -->
-                <div class="p-8 rounded-2xl bg-stone-50 hover:bg-teal-50 transition border border-stone-100 hover:border-teal-100 group">
-                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-teal-600 shadow-sm mb-6 group-hover:scale-110 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-stone-800">تحسين المزاج</h3>
-                    <p class="text-stone-600 leading-relaxed">تمارين بسيطة وسريعة لرفع مستوى طاقتك الإيجابية وتخفيف التوتر.</p>
+                <!-- Chat Input -->
+                <div class="p-4 bg-black/20 backdrop-blur-sm border-t border-white/5">
+                    <form id="chatForm" onsubmit="handleChat(event)" class="flex gap-2">
+                        <input type="text" id="userInput" class="flex-1 bg-white/10 border border-white/10 rounded-full px-5 py-3 text-white placeholder-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" placeholder="اكتب ما يدور في ذهنك..." data-key="chatPlaceholder">
+                        <button type="submit" class="w-12 h-12 rounded-full bg-indigo-600 hover:bg-indigo-700 flex items-center justify-center text-white transition shadow-lg disabled:opacity-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Breathing Tool Section -->
-    <section id="breathing" class="py-20 bg-teal-900 text-white relative overflow-hidden">
+    <section id="breathing" class="py-20 relative overflow-hidden">
         <div class="container mx-auto px-6 text-center relative z-10">
-            <h2 class="text-3xl font-bold mb-4">تنفس بعمق</h2>
-            <p class="text-teal-200 mb-12 max-w-lg mx-auto">اتبع الدائرة.. استنشق الهواء ببطء عندما تتوسع، وازفره عندما تنكمش.</p>
+            <h2 class="text-3xl font-bold mb-4 text-white" data-key="breatheTitle">تنفس بعمق</h2>
+            <p class="text-indigo-200 mb-12 max-w-lg mx-auto" data-key="breatheDesc">دع الأفكار تمر مثل الغيوم. ركز فقط على دائرة الضوء.</p>
             
             <div class="flex flex-col items-center justify-center h-80">
                 <div class="relative flex items-center justify-center">
-                    <!-- Outer pulsating rings -->
-                    <div id="ring1" class="absolute w-64 h-64 border border-teal-500/30 rounded-full transition-all duration-[4000ms]"></div>
-                    <div id="ring2" class="absolute w-48 h-48 border border-teal-400/50 rounded-full transition-all duration-[4000ms]"></div>
+                    <!-- Rings -->
+                    <div id="ring1" class="absolute w-64 h-64 border border-indigo-400/20 rounded-full transition-all duration-[4000ms]"></div>
+                    <div id="ring2" class="absolute w-48 h-48 border border-indigo-300/30 rounded-full transition-all duration-[4000ms]"></div>
                     
-                    <!-- Main Breathing Circle -->
-                    <div id="breathingCircle" class="w-40 h-40 bg-gradient-to-b from-teal-400 to-teal-600 rounded-full shadow-[0_0_40px_rgba(45,212,191,0.4)] flex items-center justify-center breathing-circle relative z-20">
-                        <span id="breathingText" class="text-2xl font-bold text-white tracking-widest">جاهز؟</span>
+                    <!-- Circle -->
+                    <div id="breathingCircle" class="w-40 h-40 bg-gradient-to-b from-indigo-400 to-purple-500 rounded-full shadow-[0_0_50px_rgba(167,139,250,0.4)] flex items-center justify-center breathing-circle relative z-20">
+                        <span id="breathingText" class="text-2xl font-bold text-white tracking-widest" data-key="ready">جاهز؟</span>
                     </div>
                 </div>
             </div>
 
-            <button onclick="toggleBreathing()" id="breathingBtn" class="mt-8 px-10 py-3 bg-white text-teal-900 rounded-full font-bold hover:bg-teal-50 transition shadow-lg">
+            <button onclick="toggleBreathing()" id="breathingBtn" class="mt-8 px-10 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-full font-bold transition shadow-lg backdrop-blur-sm" data-key="startBreathe">
                 ابدأ التمرين
             </button>
         </div>
     </section>
 
     <!-- Affirmations Section -->
-    <section id="affirmations" class="py-24 bg-stone-100">
+    <section id="affirmations" class="py-24">
         <div class="container mx-auto px-6 max-w-4xl">
-            <div class="bg-white rounded-3xl p-10 md:p-16 shadow-xl text-center relative">
-                <div class="absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2">
-                    <svg class="h-20 w-20 text-teal-100 opacity-50" fill="currentColor" viewBox="0 0 32 32">
-                        <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H6c0-2.2 1.8-4 4-4V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-8c0-2.2 1.8-4 4-4V8z"></path>
-                    </svg>
-                </div>
+            <div class="glass-panel rounded-3xl p-10 md:p-16 shadow-[0_0_40px_rgba(0,0,0,0.3)] text-center relative">
                 
-                <h2 class="text-2xl font-bold text-teal-600 mb-8">رسالة لك اليوم</h2>
+                <h2 class="text-2xl font-bold text-indigo-300 mb-8" data-key="affTitle">رسالة اللحظة</h2>
                 
-                <div class="min-h-[120px] flex items-center justify-center mb-8">
-                    <p id="affirmationText" class="text-2xl md:text-3xl text-stone-700 font-medium leading-normal animate-fade-in">
-                        "أنت تستحق الهدوء والسلام الذي تسعى إليه."
+                <div class="min-h-[120px] flex flex-col items-center justify-center mb-8 gap-4">
+                    <p id="affirmationText" class="text-2xl md:text-3xl text-white font-light leading-normal">
+                        "الهدوء ليس غياب الضجيج، بل هو السلام وسط الضجيج."
                     </p>
                 </div>
                 
-                <button onclick="newAffirmation()" class="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white transition-all duration-200 bg-stone-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-900 hover:bg-teal-600">
-                    <span class="ml-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:rotate-180 transition duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="flex justify-center gap-4">
+                    <button onclick="newAffirmation()" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold transition shadow-lg flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                         </svg>
-                    </span>
-                    رسالة جديدة
-                </button>
+                        <span data-key="newMsg">رسالة جديدة</span>
+                    </button>
+                    
+                    <button onclick="speakAffirmation()" class="px-4 py-3 bg-white/10 hover:bg-white/20 text-indigo-200 rounded-full transition border border-white/10" title="استمع">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-stone-900 text-stone-400 py-12">
+    <footer class="bg-black/40 text-indigo-300 py-12 border-t border-white/5">
         <div class="container mx-auto px-6 text-center">
-            <h3 class="text-2xl font-bold text-white mb-6">ملاذك الآمن</h3>
-            <p class="mb-8 max-w-md mx-auto">تذكر دائماً أنك لست وحدك، وأن الغد يحمل في طياته فرصاً جديدة للبدء من جديد.</p>
-            
-            <div class="flex justify-center gap-6 mb-8">
-                <a href="#" class="hover:text-teal-400 transition">تويتر</a>
-                <a href="#" class="hover:text-teal-400 transition">انستجرام</a>
-                <a href="#" class="hover:text-teal-400 transition">البريد الإلكتروني</a>
-            </div>
-            
-            <div class="border-t border-stone-800 pt-8 text-sm">
-                &copy; 2023 ملاذك الآمن. جميع الحقوق محفوظة.
+            <h3 class="text-2xl font-bold text-white mb-6" data-key="footerTitle">ملاذك الآمن</h3>
+            <p class="mb-8 max-w-md mx-auto opacity-70" data-key="footerDesc">تذكر دائماً أنك لست وحدك، وأن الغد يحمل في طياته فرصاً جديدة.</p>
+            <div class="text-sm opacity-50">
+                &copy; 2023 Safe Haven.
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Logic -->
     <script>
-        // --- Breathing Exercise Logic ---
+        // --- DATA & TRANSLATIONS ---
+        const data = {
+            ar: {
+                siteName: "ملاذك الآمن",
+                heroTitle: "استعد توازنك <span class='text-indigo-400'>تحت ضوء النجوم</span>",
+                heroSubtitle: "مساحتك الهادئة للتخلص من أعباء اليوم، التحدث بقلب مفتوح، وإيجاد السكينة.",
+                btnChat: "تحدث معي",
+                btnBreathe: "تمرين التنفس",
+                botName: "رفيقك الهادئ",
+                botStatus: "يستمع إليك الآن...",
+                botIntro: "أهلاً بك. المكان هنا آمن تماماً. كيف تشعر في هذه اللحظة؟",
+                chatPlaceholder: "اكتب ما يدور في ذهنك...",
+                breatheTitle: "تنفس بعمق",
+                breatheDesc: "دع الأفكار تمر مثل الغيوم. ركز فقط على دائرة الضوء.",
+                ready: "جاهز؟",
+                startBreathe: "ابدأ التمرين",
+                stopBreathe: "إيقاف",
+                affTitle: "رسالة اللحظة",
+                newMsg: "رسالة جديدة",
+                footerTitle: "ملاذك الآمن",
+                footerDesc: "تذكر دائماً أنك لست وحدك، وأن الغد يحمل في طياته فرصاً جديدة.",
+                inhale: "شهيق",
+                exhale: "زفير",
+                langLabel: "English",
+                affirmations: [
+                    "الهدوء يسكن في داخلك، فقط اسمح له بالظهور.",
+                    "كل شعور تشعر به له مكانه وقيمته.",
+                    "أنت تقوم بأفضل ما لديك، وهذا كافٍ جداً.",
+                    "اسمح لنفسك بالراحة، العالم لن يهرب.",
+                    "غداً يوم جديد بفرص جديدة.",
+                    "تنفس.. كل شيء سيكون بخير.",
+                    "أنت أقوى مما تتخيل، وألطف مما تدرك."
+                ]
+            },
+            en: {
+                siteName: "Safe Haven",
+                heroTitle: "Find Balance <span class='text-indigo-400'>Under the Stars</span>",
+                heroSubtitle: "Your quiet space to unload today's burdens, speak openly, and find peace.",
+                btnChat: "Talk to Me",
+                btnBreathe: "Breathing Exercise",
+                botName: "Calm Companion",
+                botStatus: "Listening now...",
+                botIntro: "Welcome. This is a safe space. How are you feeling right now?",
+                chatPlaceholder: "Type what's on your mind...",
+                breatheTitle: "Breathe Deeply",
+                breatheDesc: "Let thoughts pass like clouds. Focus only on the circle of light.",
+                ready: "Ready?",
+                startBreathe: "Start Exercise",
+                stopBreathe: "Stop",
+                affTitle: "Message of the Moment",
+                newMsg: "New Message",
+                footerTitle: "Safe Haven",
+                footerDesc: "Remember you are not alone, and tomorrow brings new opportunities.",
+                inhale: "Inhale",
+                exhale: "Exhale",
+                langLabel: "العربية",
+                affirmations: [
+                    "Peace resides within you, just let it surface.",
+                    "Every feeling you have is valid and has its place.",
+                    "You are doing your best, and that is enough.",
+                    "Allow yourself to rest; the world isn't going anywhere.",
+                    "Tomorrow is a brand new day with new chances.",
+                    "Breathe... everything will be okay.",
+                    "You are stronger than you imagine, and kinder than you realize."
+                ]
+            }
+        };
+
+        let currentLang = 'ar';
+        let isRaining = true;
+
+        // --- STARS GENERATOR ---
+        function createStars() {
+            const container = document.getElementById('starsContainer');
+            for(let i=0; i<100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                const xy = Math.random() * 100;
+                const duration = Math.random() * 3 + 2;
+                const size = Math.random() * 2 + 1;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDuration = `${duration}s`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        // --- AUDIO LOGIC ---
+        const rainAudio = document.getElementById('rainAudio');
+        rainAudio.volume = 0.4;
+        
+        function toggleRain() {
+            if(rainAudio.paused) {
+                rainAudio.play();
+                document.getElementById('rainEffect').classList.add('active');
+                document.getElementById('rainBtn').classList.add('bg-white/20');
+            } else {
+                rainAudio.pause();
+                document.getElementById('rainEffect').classList.remove('active');
+                document.getElementById('rainBtn').classList.remove('bg-white/20');
+            }
+        }
+        
+        // Auto play rain on first interaction (browser policy)
+        document.body.addEventListener('click', () => {
+             if(rainAudio.paused && isRaining) {
+                 rainAudio.play().catch(()=>{});
+                 isRaining = false; // Only try once automatically
+             }
+        }, {once:true});
+
+        // --- LANGUAGE LOGIC ---
+        function toggleLang() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr'; // Ensure body gets dir
+
+            // Update Text
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(data[currentLang][key]) {
+                    el.innerHTML = data[currentLang][key];
+                }
+            });
+
+            document.getElementById('langLabel').innerText = data[currentLang].langLabel;
+            
+            // Reset placeholders
+            document.getElementById('userInput').placeholder = data[currentLang].chatPlaceholder;
+            
+            // Refresh affirmations
+            newAffirmation();
+        }
+
+        // --- CHAT LOGIC (AI SIMULATION) ---
+        const chatResponses = {
+            ar: {
+                greetings: ["أهلاً بك"، "مرحباً"، "أنا هنا معك"],
+                sad: ["لا بأس بالشعور بالحزن أحياناً، إنه جزء من إنسانيتنا.", "أشعر بك. تذكر أن هذه المشاعر مؤقتة كالغيوم.", "خذ وقتك، لا داعي للاستعجال في التحسن."],
+                anxious: ["تنفس بعمق.. حاول التركيز على الحاضر.", "القلق يكذب علينا أحياناً، أنت في أمان هنا.", "دعنا نهدأ معاً. هل جربت تمرين التنفس في الأسفل؟"],
+                tired: ["الراحة ليست رفاهية، بل ضرورة. جسدك وروحك يستحقان الهدوء.", "لقد بذلت مجهوداً كبيراً، حان وقت الاستراحة.", "أغمض عينيك لثوانٍ وتنفس."],
+                happy: ["سعادتك تضيء هذا المكان!", "من الجميل سماع ذلك، احتفظ بهذا الشعور.", "السعادة تليق بك."],
+                default: ["أنا أسمعك بوضوح. أكمل، أنا هنا.", "كلامك مهم ومقدر.", "هل يمكنك إخباري المزيد عن ذلك؟", "نحن هنا لندعم بعضنا."]
+            },
+            en: {
+                greetings: ["Hello", "Welcome", "I am here with you"],
+                sad: ["It is okay to feel sad sometimes; it's part of being human.", "I hear you. Remember, feelings are temporary like clouds.", "Take your time, no need to rush healing."],
+                anxious: ["Breathe deeply... try to focus on the present moment.", "Anxiety can be misleading; you are safe here.", "Let's calm down together. Have you tried the breathing exercise below?"],
+                tired: ["Rest is not a luxury, it is a necessity.", "You have done a lot; it is time to rest.", "Close your eyes for a second and breathe."],
+                happy: ["Your happiness lights up this space!", "Wonderful to hear, hold onto this feeling.", "Happiness suits you."],
+                default: ["I hear you clearly. Go on, I am here.", "Your words matter.", "Can you tell me more about that?", "We are here to support each other."]
+            }
+        };
+
+        function getBotResponse(input) {
+            const lang = currentLang;
+            const text = input.toLowerCase();
+            const resp = chatResponses[lang];
+
+            if (text.match(/مرحبا|هلا|السلام|hi|hello|hey/)) return getRandom(resp.greetings);
+            if (text.match(/حزين|ضيق|ألم|تعبت|sad|pain|hurt|depressed/)) return getRandom(resp.sad);
+            if (text.match(/قلق|خائفة|خائف|توتر|anxious|scared|worried|stress/)) return getRandom(resp.anxious);
+            if (text.match(/مرهق|تعب|نوم|tired|sleepy|exhausted/)) return getRandom(resp.tired);
+            if (text.match(/سعيد|فرح|جيد|happy|good|great/)) return getRandom(resp.happy);
+            
+            return getRandom(resp.default);
+        }
+
+        function getRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        async function handleChat(e) {
+            e.preventDefault();
+            const inputEl = document.getElementById('userInput');
+            const msg = inputEl.value.trim();
+            if(!msg) return;
+
+            // User Msg
+            addMessage(msg, 'user');
+            inputEl.value = '';
+
+            // Bot Typing delay
+            setTimeout(() => {
+                const reply = getBotResponse(msg);
+                addMessage(reply, 'bot');
+                // Optional: Speak response gently
+                // speak(reply); 
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = sender === 'user' 
+                ? 'bg-white/10 text-white rounded-2xl rounded-tl-none px-4 py-3 max-w-[85%] border border-white/5'
+                : 'bg-indigo-800/80 text-indigo-50 rounded-2xl rounded-tr-none px-4 py-3 max-w-[85%] shadow-md';
+            
+            bubble.innerText = text;
+            div.appendChild(bubble);
+            container.appendChild(div);
+            
+            // Auto scroll
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // --- TTS Logic (Voice) ---
+        function speakAffirmation() {
+            const text = document.getElementById('affirmationText').innerText.replace(/"/g, '');
+            speak(text);
+        }
+
+        function speak(text) {
+            if (!('speechSynthesis' in window)) return;
+            
+            window.speechSynthesis.cancel(); // Stop previous
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = currentLang === 'ar' ? 'ar-SA' : 'en-US';
+            utterance.rate = 0.9; // Slower for relaxation
+            utterance.pitch = 1.1; // Slightly higher for "female-like" if generic
+
+            // Try to find a female voice
+            const voices = window.speechSynthesis.getVoices();
+            const femaleVoice = voices.find(v => 
+                v.lang.includes(currentLang === 'ar' ? 'ar' : 'en') && 
+                (v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Nora') || v.name.includes('Laila'))
+            );
+            
+            if (femaleVoice) utterance.voice = femaleVoice;
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // --- AFFIRMATIONS LOGIC ---
+        function newAffirmation() {
+            const textElement = document.getElementById('affirmationText');
+            textElement.style.opacity = 0;
+            
+            setTimeout(() => {
+                const arr = data[currentLang].affirmations;
+                const randomMsg = arr[Math.floor(Math.random() * arr.length)];
+                textElement.innerText = `"${randomMsg}"`;
+                textElement.style.opacity = 1;
+            }, 300);
+        }
+
+        // --- BREATHING LOGIC ---
+        let isBreathing = false;
+        let breathingInterval;
         const circle = document.getElementById('breathingCircle');
-        const text = document.getElementById('breathingText');
+        const textLabel = document.getElementById('breathingText');
         const btn = document.getElementById('breathingBtn');
         const ring1 = document.getElementById('ring1');
         const ring2 = document.getElementById('ring2');
-        
-        let isBreathing = false;
-        let breathingInterval;
 
         function breathCycle() {
-            // Inhale (4 seconds)
-            text.innerText = "شهيق";
+            textLabel.innerText = data[currentLang].inhale;
             circle.classList.add('scale-up');
             circle.classList.remove('scale-down');
             ring1.classList.add('scale-up');
@@ -211,10 +533,9 @@
             ring1.classList.remove('scale-down');
             ring2.classList.remove('scale-down');
 
-            // Exhale (4 seconds) - triggered after 4s
             setTimeout(() => {
                 if(!isBreathing) return;
-                text.innerText = "زفير";
+                textLabel.innerText = data[currentLang].exhale;
                 circle.classList.remove('scale-up');
                 circle.classList.add('scale-down');
                 ring1.classList.remove('scale-up');
@@ -227,57 +548,26 @@
         function toggleBreathing() {
             if (!isBreathing) {
                 isBreathing = true;
-                btn.innerText = "إيقاف";
-                btn.classList.replace('bg-white', 'bg-red-100');
-                btn.classList.replace('text-teal-900', 'text-red-800');
+                btn.innerText = data[currentLang].stopBreathe;
+                btn.classList.add('bg-red-500/20', 'border-red-500/50');
                 
-                breathCycle(); // Start immediately
-                breathingInterval = setInterval(breathCycle, 8000); // Repeat every 8s (4s in + 4s out)
+                breathCycle();
+                breathingInterval = setInterval(breathCycle, 8000);
             } else {
                 isBreathing = false;
                 clearInterval(breathingInterval);
-                btn.innerText = "ابدأ التمرين";
-                btn.classList.replace('bg-red-100', 'bg-white');
-                btn.classList.replace('text-red-800', 'text-teal-900');
-                text.innerText = "جاهز؟";
+                btn.innerText = data[currentLang].startBreathe;
+                btn.classList.remove('bg-red-500/20', 'border-red-500/50');
+                textLabel.innerText = data[currentLang].ready;
                 
-                // Reset scales
                 circle.classList.remove('scale-up', 'scale-down');
                 ring1.classList.remove('scale-up', 'scale-down');
                 ring2.classList.remove('scale-up', 'scale-down');
             }
         }
-
-        // --- Affirmations Logic ---
-        const affirmations = [
-            "أنت أقوى مما تعتقد.",
-            "كل شيء سيكون على ما يرام.",
-            "تنفس بعمق، هذه اللحظة هي كل ما تملك.",
-            "أنت تستحق الحب والاحترام والراحة.",
-            "مشاعرك لها قيمة، واسمح لنفسك بالشعور بها.",
-            "لا بأس أن تأخذ استراحة، العالم سينتظرك.",
-            "أنت تتقدم كل يوم، حتى لو كانت خطوات صغيرة.",
-            "بداخلك سلام لا يمكن لأي ضجيج خارجي أن يطفئه.",
-            "أنت كافٍ تماماً كما أنت.",
-            "تجاوزت أياماً صعبة من قبل، وستتجاوز هذا أيضاً.",
-            "السعادة هي رحلة وليست وجهة."
-        ];
-
-        function newAffirmation() {
-            const textElement = document.getElementById('affirmationText');
-            // Fade out
-            textElement.style.opacity = 0;
-            
-            setTimeout(() => {
-                // Get random text
-                const randomIndex = Math.floor(Math.random() * affirmations.length);
-                textElement.innerText = `"${affirmations[randomIndex]}"`;
-                
-                // Fade in
-                textElement.style.transition = "opacity 0.5s";
-                textElement.style.opacity = 1;
-            }, 300);
-        }
+        
+        // Init sounds on voices loaded
+        window.speechSynthesis.onvoiceschanged = () => {};
     </script>
 </body>
 </html>
