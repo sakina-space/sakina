@@ -1,409 +1,283 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>سَكينة | مساحة ليلية آمنة</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Tajawal', sans-serif;
-      background: #0f0c1a;
-      margin: 0;
-      padding: 0;
-      color: #e0e0e0;
-      line-height: 1.8;
-      overflow-x: hidden;
-      background-image: linear-gradient(135deg, #0f0c1a 0%, #1a122a 100%);
-      position: relative;
-    }
-
-    /* نجوم متحركة */
-    .stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 3s infinite ease-in-out;
-    }
-    @keyframes twinkle {
-      0% { opacity: 0.3; }
-      50% { opacity: 1; }
-      100% { opacity: 0.3; }
-    }
-
-    /* أمطار خفيفة */
-    .rain {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .raindrop {
-      position: absolute;
-      background: rgba(255,255,255,0.3);
-      width: 2px;
-      height: 10px;
-      animation: fall 2s linear infinite;
-    }
-    @keyframes fall {
-      0% { transform: translateY(-10px); }
-      100% { transform: translateY(100vh); }
-    }
-
-    header, footer {
-      background: rgba(15, 12, 26, 0.85);
-      padding: 1.5rem 1rem;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-    h1 { color: #bbdefb; font-size: 2.5rem; margin: 0; }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 1rem;
-    }
-    .card {
-      background: rgba(30, 25, 45, 0.7);
-      border-radius: 25px;
-      padding: 2rem;
-      margin: 1.5rem 0;
-      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
-    }
-    .btn {
-      background: #26a69a;
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 30px;
-      font-size: 1rem;
-      margin: 0.5rem;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .btn:hover {
-      background: #00796b;
-      transform: translateY(-2px);
-    }
-    .messages {
-      background: rgba(15, 12, 26, 0.9);
-      border-radius: 15px;
-      padding: 1rem;
-      max-height: 300px;
-      overflow-y: auto;
-      text-align: right;
-      border: 1px solid #302d40;
-    }
-    .user-msg, .ai-msg {
-      padding: 0.7rem 1rem;
-      border-radius: 15px;
-      margin: 0.5rem;
-      display: inline-block;
-      max-width: 80%;
-    }
-    .user-msg { background: #4db6ac; color: #000; }
-    .ai-msg { background: #5c6bc0; color: #fff; }
-    textarea {
-      width: 100%;
-      padding: 1rem;
-      border-radius: 15px;
-      border: 1px solid #302d40;
-      background: rgba(30, 25, 45, 0.8);
-      color: #e0e0e0;
-      font-size: 1rem;
-      font-family: 'Tajawal', sans-serif;
-    }
-    audio {
-      margin-top: 10px;
-    }
-    .quote-box {
-      background: rgba(30, 25, 45, 0.8);
-      border-radius: 20px;
-      padding: 1.5rem;
-      margin: 1rem 0;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-    .quote-text {
-      font-size: 1.5rem;
-      font-family: 'Amiri', serif;
-      color: #bbdefb;
-      margin: 1rem 0;
-      line-height: 2;
-    }
-    .quote-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 15px;
-      margin: 1rem 0;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-    section {
-      display: none;
-      padding: 2rem;
-    }
-    section.active {
-      display: block;
-    }
-    .nav-btns {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملاذك الآمن | مساحتك للهدوء</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        .breathing-circle {
+            transition: all 4s ease-in-out;
+        }
+        .scale-up {
+            transform: scale(1.5);
+        }
+        .scale-down {
+            transform: scale(1);
+        }
+    </style>
 </head>
-<body>
+<body class="bg-stone-50 text-stone-800">
 
-  <!-- نجوم متحركة -->
-  <div class="stars" id="stars"></div>
+    <!-- Header / Navbar -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-stone-100">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                </div>
+                <span class="text-xl font-bold text-teal-800 tracking-wide">ملاذك الآمن</span>
+            </div>
+            <ul class="hidden md:flex gap-8 text-stone-600 font-medium">
+                <li><a href="#home" class="hover:text-teal-600 transition">الرئيسية</a></li>
+                <li><a href="#breathing" class="hover:text-teal-600 transition">تمرين التنفس</a></li>
+                <li><a href="#affirmations" class="hover:text-teal-600 transition">رسائل إيجابية</a></li>
+                <li><a href="#contact" class="hover:text-teal-600 transition">تواصل معنا</a></li>
+            </ul>
+            <button class="md:hidden text-stone-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </nav>
 
-  <!-- أمطار خفيفة -->
-  <div class="rain" id="rain"></div>
+    <!-- Hero Section -->
+    <header id="home" class="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-teal-50 via-stone-50 to-orange-50">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-stone-800 mb-6 leading-tight">
+                استعد توازنك <span class="text-teal-600">النفسي والروحي</span>
+            </h1>
+            <p class="text-lg md:text-xl text-stone-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                في خضم ضجيج الحياة، "ملاذك الآمن" هو مساحتك الخاصة للهدوء، التأمل، والعثور على السلام الداخلي الذي تستحقه.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#breathing" class="px-8 py-3 bg-teal-600 text-white rounded-full font-bold shadow-lg hover:bg-teal-700 transition transform hover:-translate-y-1">
+                    ابدأ رحلة الهدوء
+                </a>
+                <a href="#affirmations" class="px-8 py-3 bg-white text-teal-600 border border-teal-200 rounded-full font-bold shadow-sm hover:bg-teal-50 transition">
+                    رسالتك اليومية
+                </a>
+            </div>
+        </div>
+        <!-- Decorative blobs -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-0 right-0 w-64 h-64 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+    </header>
 
-  <header>
-    <h1>سَكينة</h1>
-    <p>مساحتك الليلية الآمنة... تحت النجوم، وفي ظلام هادئ</p>
-    <div class="nav-btns">
-      <button onclick="showSection('home')" class="btn">🏠 الصفحة الرئيسية</button>
-      <button onclick="showSection('chat')" class="btn">💬 فضفضة واقعية</button>
-      <button onclick="showSection('quote')" class="btn">🌙 اقتباس اليوم</button>
-      <button onclick="showSection('relax')" class="btn">🧘‍♀️ تمارين ليلية</button>
-    </div>
-  </header>
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-stone-800 mb-4">ماذا نقدم لك؟</h2>
+                <div class="w-16 h-1 bg-teal-500 mx-auto rounded"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-2xl bg-stone-50 hover:bg-teal-50 transition border border-stone-100 hover:border-teal-100 group">
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-teal-600 shadow-sm mb-6 group-hover:scale-110 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-stone-800">تصفية الذهن</h3>
+                    <p class="text-stone-600 leading-relaxed">أدوات وتقنيات تساعدك على التخلص من التشتت والتركيز على اللحظة الحالية.</p>
+                </div>
 
-  <div class="container">
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-2xl bg-stone-50 hover:bg-teal-50 transition border border-stone-100 hover:border-teal-100 group">
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-teal-600 shadow-sm mb-6 group-hover:scale-110 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-stone-800">دعم ذاتي</h3>
+                    <p class="text-stone-600 leading-relaxed">عبارات ومقالات لتعزيز ثقتك بنفسك وتذكيرك بقيمتك الحقيقية.</p>
+                </div>
 
-    <!-- الصفحة الرئيسية -->
-    <section id="home" class="active card">
-      <h2>مرحبًا بك في سَكينة</h2>
-      <p>هنا لا أحد يحكم عليك، ولا أحد يطلب منك أن تكون قويًا.</p>
-      <p>أنت مسموح لك أن تكون ضعيفًا، مسموح لك أن تبكي، ومسموح لك أن تستريح.</p>
-      <p>اختر ما تحتاجه الآن:</p>
-      <div class="nav-btns">
-        <button onclick="showSection('chat')" class="btn">💬 فضفض معي</button>
-        <button onclick="showSection('quote')" class="btn">🌙 اقرأ اقتباس اليوم</button>
-        <button onclick="showSection('relax')" class="btn">🧘‍♀️ استرخي</button>
-      </div>
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-2xl bg-stone-50 hover:bg-teal-50 transition border border-stone-100 hover:border-teal-100 group">
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-teal-600 shadow-sm mb-6 group-hover:scale-110 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-stone-800">تحسين المزاج</h3>
+                    <p class="text-stone-600 leading-relaxed">تمارين بسيطة وسريعة لرفع مستوى طاقتك الإيجابية وتخفيف التوتر.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- فضفضة واقعية -->
-    <section id="chat" class="card">
-      <h2>فضفض معي الآن 💌</h2>
-      <div class="messages" id="messages">
-        <div class="ai-msg">مرحباً، خذي وقتك... أنا هنا أسمعك بكل قلب.</div>
-      </div>
-      <textarea id="userInput" rows="2" placeholder="اكتب اللي بخاطرك..."></textarea>
-      <button class="btn" onclick="sendMessage()">إرسال</button>
+    <!-- Breathing Tool Section -->
+    <section id="breathing" class="py-20 bg-teal-900 text-white relative overflow-hidden">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-3xl font-bold mb-4">تنفس بعمق</h2>
+            <p class="text-teal-200 mb-12 max-w-lg mx-auto">اتبع الدائرة.. استنشق الهواء ببطء عندما تتوسع، وازفره عندما تنكمش.</p>
+            
+            <div class="flex flex-col items-center justify-center h-80">
+                <div class="relative flex items-center justify-center">
+                    <!-- Outer pulsating rings -->
+                    <div id="ring1" class="absolute w-64 h-64 border border-teal-500/30 rounded-full transition-all duration-[4000ms]"></div>
+                    <div id="ring2" class="absolute w-48 h-48 border border-teal-400/50 rounded-full transition-all duration-[4000ms]"></div>
+                    
+                    <!-- Main Breathing Circle -->
+                    <div id="breathingCircle" class="w-40 h-40 bg-gradient-to-b from-teal-400 to-teal-600 rounded-full shadow-[0_0_40px_rgba(45,212,191,0.4)] flex items-center justify-center breathing-circle relative z-20">
+                        <span id="breathingText" class="text-2xl font-bold text-white tracking-widest">جاهز؟</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="toggleBreathing()" id="breathingBtn" class="mt-8 px-10 py-3 bg-white text-teal-900 rounded-full font-bold hover:bg-teal-50 transition shadow-lg">
+                ابدأ التمرين
+            </button>
+        </div>
     </section>
 
-    <!-- اقتباس اليوم -->
-    <section id="quote" class="card">
-      <h2>اقتباس اليوم 🌙</h2>
-      <div class="quote-box">
-        <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="سماء ليلية" class="quote-img">
-        <div class="quote-text" id="dailyQuote">جاري تحميل اقتباس اليوم...</div>
-        <audio controls id="quoteAudio">
-          <source src="https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio1.mp3" type="audio/mp3" />
-        </audio>
-        <button class="btn" onclick="playTodayVoice()">🔊 استمع للعبارة</button>
-      </div>
+    <!-- Affirmations Section -->
+    <section id="affirmations" class="py-24 bg-stone-100">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="bg-white rounded-3xl p-10 md:p-16 shadow-xl text-center relative">
+                <div class="absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2">
+                    <svg class="h-20 w-20 text-teal-100 opacity-50" fill="currentColor" viewBox="0 0 32 32">
+                        <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H6c0-2.2 1.8-4 4-4V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-8c0-2.2 1.8-4 4-4V8z"></path>
+                    </svg>
+                </div>
+                
+                <h2 class="text-2xl font-bold text-teal-600 mb-8">رسالة لك اليوم</h2>
+                
+                <div class="min-h-[120px] flex items-center justify-center mb-8">
+                    <p id="affirmationText" class="text-2xl md:text-3xl text-stone-700 font-medium leading-normal animate-fade-in">
+                        "أنت تستحق الهدوء والسلام الذي تسعى إليه."
+                    </p>
+                </div>
+                
+                <button onclick="newAffirmation()" class="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white transition-all duration-200 bg-stone-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-900 hover:bg-teal-600">
+                    <span class="ml-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:rotate-180 transition duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </span>
+                    رسالة جديدة
+                </button>
+            </div>
+        </div>
     </section>
 
-    <!-- تمارين ليلية -->
-    <section id="relax" class="card">
-      <h2>تمارين ليلية 🌿</h2>
-      <div class="quote-box">
-        <h3>🫁 تنفس ٤-٧-٨</h3>
-        <p>شهيق ٤ ثواني... احبس ٧... وزفير ٨ ببطء. كرر ٣ مرات.</p>
-        <audio controls>
-          <source src="https://cdn.pixabay.com/audio/2022/05/30/audio_8c0c66e25b.mp3" type="audio/mp3" />
-        </audio>
-      </div>
-      <div class="quote-box">
-        <h3>🌿 تخيل مكانك الهادي</h3>
-        <p>تخيل نفسك في بيت صغير فوق الجبال... رائحة القهوة، صوت المطر، راحة قلبية تنساب بداخلك.</p>
-        <audio controls>
-          <source src="https://cdn.pixabay.com/audio/2022/05/31/audio_0223e90743.mp3" type="audio/mp3" />
-        </audio>
-      </div>
-      <div class="quote-box">
-        <h3>💆‍♀️ استرخاء العضلات</h3>
-        <p>شد عضلات جسمك من قدميك حتى رأسك... كل مرّة شد ٥ ثواني ثم ريّح.</p>
-      </div>
-    </section>
+    <!-- Footer -->
+    <footer id="contact" class="bg-stone-900 text-stone-400 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-2xl font-bold text-white mb-6">ملاذك الآمن</h3>
+            <p class="mb-8 max-w-md mx-auto">تذكر دائماً أنك لست وحدك، وأن الغد يحمل في طياته فرصاً جديدة للبدء من جديد.</p>
+            
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="#" class="hover:text-teal-400 transition">تويتر</a>
+                <a href="#" class="hover:text-teal-400 transition">انستجرام</a>
+                <a href="#" class="hover:text-teal-400 transition">البريد الإلكتروني</a>
+            </div>
+            
+            <div class="border-t border-stone-800 pt-8 text-sm">
+                &copy; 2023 ملاذك الآمن. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
 
-  </div>
+    <!-- Scripts -->
+    <script>
+        // --- Breathing Exercise Logic ---
+        const circle = document.getElementById('breathingCircle');
+        const text = document.getElementById('breathingText');
+        const btn = document.getElementById('breathingBtn');
+        const ring1 = document.getElementById('ring1');
+        const ring2 = document.getElementById('ring2');
+        
+        let isBreathing = false;
+        let breathingInterval;
 
-  <footer>
-    <p>© 2024 سَكينة – مساحة ليلية آمنة لكل القلوب</p>
-  </footer>
+        function breathCycle() {
+            // Inhale (4 seconds)
+            text.innerText = "شهيق";
+            circle.classList.add('scale-up');
+            circle.classList.remove('scale-down');
+            ring1.classList.add('scale-up');
+            ring2.classList.add('scale-up');
+            ring1.classList.remove('scale-down');
+            ring2.classList.remove('scale-down');
 
-  <script>
-    // 👉 إنشاء نجوم متحركة
-    function createStars() {
-      const starsContainer = document.getElementById("stars");
-      for (let i = 0; i < 100; i++) {
-        const star = document.createElement("div");
-        star.classList.add("star");
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 100}%`;
-        star.style.width = `${Math.random() * 2 + 1}px`;
-        star.style.height = star.style.width;
-        star.style.animationDelay = `${Math.random() * 3}s`;
-        starsContainer.appendChild(star);
-      }
-    }
-
-    // 👉 إنشاء أمطار خفيفة
-    function createRain() {
-      const rainContainer = document.getElementById("rain");
-      for (let i = 0; i < 50; i++) {
-        const drop = document.createElement("div");
-        drop.classList.add("raindrop");
-        drop.style.left = `${Math.random() * 100}%`;
-        drop.style.animationDelay = `${Math.random() * 2}s`;
-        rainContainer.appendChild(drop);
-      }
-    }
-
-    // 👉 عرض القسم المطلوب فقط
-    function showSection(id) {
-      document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-    }
-
-    // 👉 اقتباس اليوم
-    const quotes = [
-      "مهما طال الليل، الفجر قادم... ومعاه كل الأمل",
-      "أنت أقوى مما تظن، وما تمر به الآن لن يدوم",
-      "مسموح لك تبكي، مسموح لك تتعب، ومسموح لك ترتاح",
-      "كل خطوة صغيرة إلى الأمام هي انتصار",
-      "الأيام الصعبة هي التي تصنع القصص الجميلة",
-      "لا تقارن فصولك الصعبة بفصول الآخرين الجميلة",
-      "أنت لست مكسوراً... أنت تمر فقط بمرحلة إعادة بناء",
-      "الأمل هو ذلك الشيء الصغير الذي ينقذنا"
-    ];
-
-    const quoteImages = [
-      "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      "https://images.unsplash.com/photo-1511691261846-54384999588d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-    ];
-
-    function updateDailyQuote() {
-      const day = new Date().getDate() % quotes.length;
-      const quoteText = quotes[day];
-      const quoteImg = quoteImages[day];
-      document.getElementById("dailyQuote").textContent = `"${quoteText}"`;
-      document.querySelector(".quote-img").src = quoteImg;
-    }
-
-    updateDailyQuote();
-
-    // 👉 صوت اقتباس اليوم (من رابط خارجي)
-    const voiceData = [
-      {
-        text: "أنا معك... خذي نفس عميق، وأحكي لي وش اللي بخاطرك.",
-        url: "https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio1.mp3"
-      },
-      {
-        text: "مهما كان شعورك الآن، أنا هنا أسمعك بكل قلب... لا تحملين همّك وحدك.",
-        url: "https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio2.mp3"
-      },
-      {
-        text: "الليل طويل، لكن الفجر قريب... وأنتِ تستاهلين الراحة والسكينة.",
-        url: "https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio3.mp3"
-      }
-    ];
-
-    function playTodayVoice() {
-      const day = new Date().getDate() % voiceData.length;
-      const audio = new Audio(voiceData[day].url);
-      document.getElementById("quoteAudio").src = voiceData[day].url;
-      document.getElementById("quoteAudio").play();
-    }
-
-    // 👉 الذكاء الاصطناعي التفاعلي (بدون تحيز للجنس)
-    const responses = {
-      default: [
-        "أنا أسمعك... وش أكثر شيء مضايقك؟",
-        "كل اللي تحس فيه مهم... كلماتي بسيطة، بس أنا صدقًا معك.",
-        "ودك نحاول نحلها؟ أو بس تحب تفضفض؟ أنا ما أضغط.",
-        "أحيانًا الكلام يخفف كثير، استمر أنا مهتم بكلامك.",
-        "خلنا نبدي بخطوة... متى آخر مرة حسّيت براحة؟",
-        "أنت مفروض تكون بخير، بس الدنيا مو سهلة... وأنا مدري وش صار لك، بس ودّي أسمع.",
-        "أنا جاهز أسمع حتى لو ما عرفت أرد، حضورك يكفي."
-      ],
-      sad: [
-        "أنا هنا... شو اللي مزعلك؟ هل تبين تقولي؟",
-        "الحزن مش عيب... وأنتِ تستاهلين أن تشعري بالأمان.",
-        "خذي نفس... وقلّي شو اللي صار؟ أنا مستعد أسمعك طول الليل.",
-        "أحيانًا الحزن بيحتاج صوت يسمعك... وأنا هذي الصوت.",
-        "متقلقين، أنا ما بس أسمعك... أنا بحاول أفهمك."
-      ],
-      tired: [
-        "تعالي نرتاح شوي... خذي نفس عميق.",
-        "التعب ما يختفي بسرعة، لكن ممكن نخففه مع بعض.",
-        "أنا هنا عشان أحمل جزء من تعبك... خذي وقتك.",
-        "لو حبيتي، نقدر نبدأ بتمرين بسيط للاسترخاء؟",
-        "أنتِ ما بتحتاجين تقولي كل شيء... حتى كلمة واحدة كافية."
-      ]
-    };
-
-    function sendMessage() {
-      const input = document.getElementById("userInput");
-      const msg = input.value.trim();
-      if (!msg) return;
-      const box = document.getElementById("messages");
-
-      const user = document.createElement("div");
-      user.className = "user-msg";
-      user.textContent = msg;
-      box.appendChild(user);
-
-      setTimeout(() => {
-        let reply = responses.default[Math.floor(Math.random() * responses.default.length)];
-
-        // تفاعل ذكي حسب الكلمات
-        if (msg.includes("حزين") || msg.includes("حزينة")) {
-          reply = responses.sad[Math.floor(Math.random() * responses.sad.length)];
-        } else if (msg.includes("تعب") || msg.includes("متعب")) {
-          reply = responses.tired[Math.floor(Math.random() * responses.tired.length)];
+            // Exhale (4 seconds) - triggered after 4s
+            setTimeout(() => {
+                if(!isBreathing) return;
+                text.innerText = "زفير";
+                circle.classList.remove('scale-up');
+                circle.classList.add('scale-down');
+                ring1.classList.remove('scale-up');
+                ring1.classList.add('scale-down');
+                ring2.classList.remove('scale-up');
+                ring2.classList.add('scale-down');
+            }, 4000); 
         }
 
-        const ai = document.createElement("div");
-        ai.className = "ai-msg";
-        ai.textContent = reply;
-        box.appendChild(ai);
-        box.scrollTop = box.scrollHeight;
-      }, 800);
+        function toggleBreathing() {
+            if (!isBreathing) {
+                isBreathing = true;
+                btn.innerText = "إيقاف";
+                btn.classList.replace('bg-white', 'bg-red-100');
+                btn.classList.replace('text-teal-900', 'text-red-800');
+                
+                breathCycle(); // Start immediately
+                breathingInterval = setInterval(breathCycle, 8000); // Repeat every 8s (4s in + 4s out)
+            } else {
+                isBreathing = false;
+                clearInterval(breathingInterval);
+                btn.innerText = "ابدأ التمرين";
+                btn.classList.replace('bg-red-100', 'bg-white');
+                btn.classList.replace('text-red-800', 'text-teal-900');
+                text.innerText = "جاهز؟";
+                
+                // Reset scales
+                circle.classList.remove('scale-up', 'scale-down');
+                ring1.classList.remove('scale-up', 'scale-down');
+                ring2.classList.remove('scale-up', 'scale-down');
+            }
+        }
 
-      input.value = "";
-    }
+        // --- Affirmations Logic ---
+        const affirmations = [
+            "أنت أقوى مما تعتقد.",
+            "كل شيء سيكون على ما يرام.",
+            "تنفس بعمق، هذه اللحظة هي كل ما تملك.",
+            "أنت تستحق الحب والاحترام والراحة.",
+            "مشاعرك لها قيمة، واسمح لنفسك بالشعور بها.",
+            "لا بأس أن تأخذ استراحة، العالم سينتظرك.",
+            "أنت تتقدم كل يوم، حتى لو كانت خطوات صغيرة.",
+            "بداخلك سلام لا يمكن لأي ضجيج خارجي أن يطفئه.",
+            "أنت كافٍ تماماً كما أنت.",
+            "تجاوزت أياماً صعبة من قبل، وستتجاوز هذا أيضاً.",
+            "السعادة هي رحلة وليست وجهة."
+        ];
 
-    // 👉 تشغيل النجوم والأمطار عند تحميل الصفحة
-    window.onload = function() {
-      createStars();
-      createRain();
-    };
-  </script>
-
+        function newAffirmation() {
+            const textElement = document.getElementById('affirmationText');
+            // Fade out
+            textElement.style.opacity = 0;
+            
+            setTimeout(() => {
+                // Get random text
+                const randomIndex = Math.floor(Math.random() * affirmations.length);
+                textElement.innerText = `"${affirmations[randomIndex]}"`;
+                
+                // Fade in
+                textElement.style.transition = "opacity 0.5s";
+                textElement.style.opacity = 1;
+            }, 300);
+        }
+    </script>
 </body>
 </html>
-
