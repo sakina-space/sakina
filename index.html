@@ -14,10 +14,54 @@
       color: #e0e0e0;
       line-height: 1.8;
       overflow-x: hidden;
-      background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-      background-size: cover;
-      background-attachment: fixed;
+      background-image: linear-gradient(135deg, #0f0c1a 0%, #1a122a 100%);
+      position: relative;
     }
+
+    /* نجوم متحركة */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+
+    /* أمطار خفيفة */
+    .rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .raindrop {
+      position: absolute;
+      background: rgba(255,255,255,0.3);
+      width: 2px;
+      height: 10px;
+      animation: fall 2s linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10px); }
+      100% { transform: translateY(100vh); }
+    }
+
     header, footer {
       background: rgba(15, 12, 26, 0.85);
       padding: 1.5rem 1rem;
@@ -121,22 +165,24 @@
       gap: 1rem;
       margin: 2rem 0;
     }
-    .eng { display: none; direction: ltr; text-align: left; font-family: sans-serif; }
   </style>
 </head>
 <body>
 
+  <!-- نجوم متحركة -->
+  <div class="stars" id="stars"></div>
+
+  <!-- أمطار خفيفة -->
+  <div class="rain" id="rain"></div>
+
   <header>
-    <h1 id="title-ar">سَكينة</h1>
-    <h1 id="title-en" class="eng">Sakina</h1>
-    <p id="subtitle-ar">مساحتك الليلية الآمنة... تحت النجوم، وفي ظلام هادئ</p>
-    <p id="subtitle-en" class="eng">Your safe night space... under the stars, in gentle darkness</p>
+    <h1>سَكينة</h1>
+    <p>مساحتك الليلية الآمنة... تحت النجوم، وفي ظلام هادئ</p>
     <div class="nav-btns">
       <button onclick="showSection('home')" class="btn">🏠 الصفحة الرئيسية</button>
       <button onclick="showSection('chat')" class="btn">💬 فضفضة واقعية</button>
       <button onclick="showSection('quote')" class="btn">🌙 اقتباس اليوم</button>
       <button onclick="showSection('relax')" class="btn">🧘‍♀️ تمارين ليلية</button>
-      <button onclick="switchLanguage()" class="btn">🌍 تبديل اللغة / Switch</button>
     </div>
   </header>
 
@@ -144,14 +190,10 @@
 
     <!-- الصفحة الرئيسية -->
     <section id="home" class="active card">
-      <h2 id="home-title-ar">مرحبًا بك في سَكينة</h2>
-      <h2 id="home-title-en" class="eng">Welcome to Sakina</h2>
-      <p id="home-text-ar">هنا لا أحد يحكم عليك، ولا أحد يطلب منك أن تكون قويًا.</p>
-      <p id="home-text-en" class="eng">Here, no one judges you, and no one asks you to be strong.</p>
-      <p id="home-text2-ar">أنت مسموح لك أن تكون ضعيفًا، مسموح لك أن تبكي، ومسموح لك أن تستريح.</p>
-      <p id="home-text2-en" class="eng">You're allowed to be weak, to cry, and to rest.</p>
-      <p id="home-text3-ar">اختر ما تحتاجه الآن:</p>
-      <p id="home-text3-en" class="eng">Choose what you need now:</p>
+      <h2>مرحبًا بك في سَكينة</h2>
+      <p>هنا لا أحد يحكم عليك، ولا أحد يطلب منك أن تكون قويًا.</p>
+      <p>أنت مسموح لك أن تكون ضعيفًا، مسموح لك أن تبكي، ومسموح لك أن تستريح.</p>
+      <p>اختر ما تحتاجه الآن:</p>
       <div class="nav-btns">
         <button onclick="showSection('chat')" class="btn">💬 فضفض معي</button>
         <button onclick="showSection('quote')" class="btn">🌙 اقرأ اقتباس اليوم</button>
@@ -161,93 +203,88 @@
 
     <!-- فضفضة واقعية -->
     <section id="chat" class="card">
-      <h2 id="chat-title-ar">فضفض معي الآن 💌</h2>
-      <h2 id="chat-title-en" class="eng">Chat with me now 💌</h2>
+      <h2>فضفض معي الآن 💌</h2>
       <div class="messages" id="messages">
         <div class="ai-msg">مرحباً، خذي وقتك... أنا هنا أسمعك بكل قلب.</div>
-        <div class="ai-msg eng">Hi, take your time... I’m here to listen with all my heart.</div>
       </div>
       <textarea id="userInput" rows="2" placeholder="اكتب اللي بخاطرك..."></textarea>
-      <textarea id="userInput-en" rows="2" placeholder="Write what’s on your mind..." class="eng"></textarea>
       <button class="btn" onclick="sendMessage()">إرسال</button>
-      <button class="btn eng" onclick="sendMessage()">Send</button>
     </section>
 
     <!-- اقتباس اليوم -->
     <section id="quote" class="card">
-      <h2 id="quote-title-ar">اقتباس اليوم 🌙</h2>
-      <h2 id="quote-title-en" class="eng">Today's Quote 🌙</h2>
+      <h2>اقتباس اليوم 🌙</h2>
       <div class="quote-box">
         <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="سماء ليلية" class="quote-img">
         <div class="quote-text" id="dailyQuote">جاري تحميل اقتباس اليوم...</div>
-        <div class="quote-text eng" id="dailyQuote-en">Loading today's quote...</div>
         <audio controls id="quoteAudio">
           <source src="https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio1.mp3" type="audio/mp3" />
         </audio>
         <button class="btn" onclick="playTodayVoice()">🔊 استمع للعبارة</button>
-        <button class="btn eng" onclick="playTodayVoice()">🔊 Listen to the phrase</button>
       </div>
     </section>
 
     <!-- تمارين ليلية -->
     <section id="relax" class="card">
-      <h2 id="relax-title-ar">تمارين ليلية 🌿</h2>
-      <h2 id="relax-title-en" class="eng">Nightly Exercises 🌿</h2>
+      <h2>تمارين ليلية 🌿</h2>
       <div class="quote-box">
-        <h3 id="relax1-ar">🫁 تنفس ٤-٧-٨</h3>
-        <h3 id="relax1-en" class="eng">🫁 Breathe 4-7-8</h3>
-        <p id="relax1-text-ar">شهيق ٤ ثواني... احبس ٧... وزفير ٨ ببطء. كرر ٣ مرات.</p>
-        <p id="relax1-text-en" class="eng">Inhale 4 sec... hold 7... exhale slowly for 8. Repeat 3 times.</p>
+        <h3>🫁 تنفس ٤-٧-٨</h3>
+        <p>شهيق ٤ ثواني... احبس ٧... وزفير ٨ ببطء. كرر ٣ مرات.</p>
         <audio controls>
           <source src="https://cdn.pixabay.com/audio/2022/05/30/audio_8c0c66e25b.mp3" type="audio/mp3" />
         </audio>
       </div>
       <div class="quote-box">
-        <h3 id="relax2-ar">🌿 تخيل مكانك الهادي</h3>
-        <h3 id="relax2-en" class="eng">🌿 Imagine your calm place</h3>
-        <p id="relax2-text-ar">تخيل نفسك في بيت صغير فوق الجبال... رائحة القهوة، صوت المطر، راحة قلبية تنساب بداخلك.</p>
-        <p id="relax2-text-en" class="eng">Imagine yourself in a small house on the mountains... coffee scent, rain sound, peace flowing inside you.</p>
+        <h3>🌿 تخيل مكانك الهادي</h3>
+        <p>تخيل نفسك في بيت صغير فوق الجبال... رائحة القهوة، صوت المطر، راحة قلبية تنساب بداخلك.</p>
         <audio controls>
           <source src="https://cdn.pixabay.com/audio/2022/05/31/audio_0223e90743.mp3" type="audio/mp3" />
         </audio>
       </div>
       <div class="quote-box">
-        <h3 id="relax3-ar">💆‍♀️ استرخاء العضلات</h3>
-        <h3 id="relax3-en" class="eng">💆‍♀️ Muscle relaxation</h3>
-        <p id="relax3-text-ar">شد عضلات جسمك من قدميك حتى رأسك... كل مرّة شد ٥ ثواني ثم ريّح.</p>
-        <p id="relax3-text-en" class="eng">Tense your muscles from feet to head... hold each for 5 sec, then release.</p>
+        <h3>💆‍♀️ استرخاء العضلات</h3>
+        <p>شد عضلات جسمك من قدميك حتى رأسك... كل مرّة شد ٥ ثواني ثم ريّح.</p>
       </div>
     </section>
 
   </div>
 
   <footer>
-    <p id="footer-ar">© 2024 سَكينة – مساحة ليلية آمنة لكل القلوب</p>
-    <p id="footer-en" class="eng">© 2024 Sakina – A safe night space for all hearts</p>
+    <p>© 2024 سَكينة – مساحة ليلية آمنة لكل القلوب</p>
   </footer>
 
   <script>
+    // 👉 إنشاء نجوم متحركة
+    function createStars() {
+      const starsContainer = document.getElementById("stars");
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.width = `${Math.random() * 2 + 1}px`;
+        star.style.height = star.style.width;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        starsContainer.appendChild(star);
+      }
+    }
+
+    // 👉 إنشاء أمطار خفيفة
+    function createRain() {
+      const rainContainer = document.getElementById("rain");
+      for (let i = 0; i < 50; i++) {
+        const drop = document.createElement("div");
+        drop.classList.add("raindrop");
+        drop.style.left = `${Math.random() * 100}%`;
+        drop.style.animationDelay = `${Math.random() * 2}s`;
+        rainContainer.appendChild(drop);
+      }
+    }
+
     // 👉 عرض القسم المطلوب فقط
     function showSection(id) {
       document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
       document.getElementById(id).classList.add("active");
-    }
-
-    // 👉 تبديل اللغة
-    function switchLanguage() {
-      const elements = document.querySelectorAll(".eng");
-      const arElements = document.querySelectorAll(":not(.eng)");
-      elements.forEach(e => e.style.display = e.style.display === "block" ? "none" : "block");
-      arElements.forEach(e => e.style.display = e.style.display === "none" ? "block" : "none");
-
-      // تحديث محتوى الحقول النصية
-      if (document.querySelector(".eng").style.display === "block") {
-        document.getElementById("userInput").style.display = "none";
-        document.getElementById("userInput-en").style.display = "block";
-      } else {
-        document.getElementById("userInput").style.display = "block";
-        document.getElementById("userInput-en").style.display = "none";
-      }
     }
 
     // 👉 اقتباس اليوم
@@ -262,17 +299,6 @@
       "الأمل هو ذلك الشيء الصغير الذي ينقذنا"
     ];
 
-    const quotesEn = [
-      "No matter how long the night is, dawn is coming... with all hope.",
-      "You are stronger than you think, and what you’re going through won’t last.",
-      "It’s okay to cry, to be tired, to rest.",
-      "Every small step forward is a victory.",
-      "Hard days are the ones that make beautiful stories.",
-      "Don’t compare your hard seasons with others’ beautiful ones.",
-      "You’re not broken... you’re just rebuilding.",
-      "Hope is that small thing that saves you."
-    ];
-
     const quoteImages = [
       "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
       "https://images.unsplash.com/photo-1511691261846-54384999588d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
@@ -283,27 +309,25 @@
     function updateDailyQuote() {
       const day = new Date().getDate() % quotes.length;
       const quoteText = quotes[day];
-      const quoteTextEn = quotesEn[day];
       const quoteImg = quoteImages[day];
       document.getElementById("dailyQuote").textContent = `"${quoteText}"`;
-      document.getElementById("dailyQuote-en").textContent = `"${quoteTextEn}"`;
       document.querySelector(".quote-img").src = quoteImg;
     }
 
     updateDailyQuote();
 
-    // 👉 صوت اقتباس اليوم
+    // 👉 صوت اقتباس اليوم (من رابط خارجي)
     const voiceData = [
       {
-        text: "أنا معك، لا تشيلين هم... احكي، يمكن نقدر نخفف مع بعض.",
+        text: "أنا معك... خذي نفس عميق، وأحكي لي وش اللي بخاطرك.",
         url: "https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio1.mp3"
       },
       {
-        text: "مهما شعرتي، أنا هنا ببساطة أسمعك... وكلك مقبول.",
+        text: "مهما كان شعورك الآن، أنا هنا أسمعك بكل قلب... لا تحملين همّك وحدك.",
         url: "https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio2.mp3"
       },
       {
-        text: "خذي نفس... وخلّي قلبك يرتاح شوي، أنا معك.",
+        text: "الليل طويل، لكن الفجر قريب... وأنتِ تستاهلين الراحة والسكينة.",
         url: "https://github.com/SAKINA-voice-demo/sakina-assets/raw/main/audio3.mp3"
       }
     ];
@@ -342,74 +366,42 @@
       ]
     };
 
-    const responsesEn = {
-      default: [
-        "I’m listening... what’s bothering you most?",
-        "Everything you feel matters... my words are simple, but I truly care.",
-        "Want to solve it together? Or do you just want to vent? I won’t pressure you.",
-        "Sometimes talking helps a lot, keep going—I’m interested in what you say.",
-        "Let’s start with one step... when was the last time you felt at ease?",
-        "You deserve to be okay, but life isn’t easy... I don’t know what happened, but I’d love to hear.",
-        "I’m ready to listen even if you don’t know what to say—your presence is enough."
-      ],
-      sad: [
-        "I’m here... what’s upsetting you? Do you want to tell me?",
-        "Sadness isn’t a flaw... you deserve to feel safe.",
-        "Take a deep breath... and tell me what happened? I’m ready to listen all night.",
-        "Sometimes sadness needs someone to hear it... and I’m that someone.",
-        "Don’t worry, I’m not just listening—I’m trying to understand you."
-      ],
-      tired: [
-        "Let’s relax a bit... take a deep breath.",
-        "Fatigue doesn’t disappear quickly, but we can ease it together.",
-        "I’m here to carry part of your tiredness... take your time.",
-        "If you’d like, we can start with a simple relaxation exercise?",
-        "You don’t need to tell me everything... even one word is enough."
-      ]
-    };
-
     function sendMessage() {
       const input = document.getElementById("userInput");
-      const inputEn = document.getElementById("userInput-en");
-      let msg = input.value.trim();
-      if (msg === "") msg = inputEn.value.trim();
+      const msg = input.value.trim();
       if (!msg) return;
-
       const box = document.getElementById("messages");
-      const userMsg = document.createElement("div");
-      userMsg.className = "user-msg";
-      userMsg.textContent = msg;
-      box.appendChild(userMsg);
+
+      const user = document.createElement("div");
+      user.className = "user-msg";
+      user.textContent = msg;
+      box.appendChild(user);
 
       setTimeout(() => {
         let reply = responses.default[Math.floor(Math.random() * responses.default.length)];
-        let replyEn = responsesEn.default[Math.floor(Math.random() * responsesEn.default.length)];
 
         // تفاعل ذكي حسب الكلمات
         if (msg.includes("حزين") || msg.includes("حزينة")) {
           reply = responses.sad[Math.floor(Math.random() * responses.sad.length)];
-          replyEn = responsesEn.sad[Math.floor(Math.random() * responsesEn.sad.length)];
         } else if (msg.includes("تعب") || msg.includes("متعب")) {
           reply = responses.tired[Math.floor(Math.random() * responses.tired.length)];
-          replyEn = responsesEn.tired[Math.floor(Math.random() * responsesEn.tired.length)];
         }
 
-        const aiMsg = document.createElement("div");
-        aiMsg.className = "ai-msg";
-        aiMsg.textContent = reply;
-        box.appendChild(aiMsg);
-
-        const aiMsgEn = document.createElement("div");
-        aiMsgEn.className = "ai-msg eng";
-        aiMsgEn.textContent = replyEn;
-        box.appendChild(aiMsgEn);
-
+        const ai = document.createElement("div");
+        ai.className = "ai-msg";
+        ai.textContent = reply;
+        box.appendChild(ai);
         box.scrollTop = box.scrollHeight;
       }, 800);
 
       input.value = "";
-      inputEn.value = "";
     }
+
+    // 👉 تشغيل النجوم والأمطار عند تحميل الصفحة
+    window.onload = function() {
+      createStars();
+      createRain();
+    };
   </script>
 
 </body>
