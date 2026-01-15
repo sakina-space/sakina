@@ -13,6 +13,15 @@
       font-family: 'Tajawal', sans-serif;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    
+    /* Enable text selection for inputs */
+    input, textarea {
+      -webkit-user-select: text;
+      user-select: text;
     }
 
     :root {
@@ -188,27 +197,35 @@
       background: rgba(124, 141, 176, 0.3);
       border: 1px solid rgba(148, 163, 184, 0.3);
       color: #e2e8f0;
-      transition: all 0.15s ease;
+      transition: background 0.15s ease, transform 0.1s ease;
+      will-change: transform;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .soft-btn:hover {
       background: rgba(124, 141, 176, 0.5);
-      transform: scale(1.02);
     }
 
     .soft-btn:active {
-      transform: scale(0.97);
+      transform: scale(0.95);
+      background: rgba(124, 141, 176, 0.6);
     }
 
     .primary-btn {
       background: linear-gradient(135deg, #7c8db0, #5a6a8a);
       color: white;
-      transition: all 0.15s ease;
+      transition: background 0.15s ease, transform 0.1s ease;
+      will-change: transform;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .primary-btn:hover {
       filter: brightness(1.1);
-      transform: scale(1.02);
+    }
+
+    .primary-btn:active {
+      transform: scale(0.95);
+      filter: brightness(1.15);
     }
 
     /* المحادثة */
@@ -270,6 +287,7 @@
     .game-card {
       cursor: pointer;
       transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .game-card:hover {
@@ -281,12 +299,13 @@
       height: 70px;
       perspective: 1000px;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .memory-card-inner {
       width: 100%;
       height: 100%;
-      transition: transform 0.5s;
+      transition: transform 0.3s;
       transform-style: preserve-3d;
     }
 
@@ -314,6 +333,16 @@
       background: rgba(71, 85, 105, 0.7);
       transform: rotateY(180deg);
     }
+    
+    /* تحسين سرعة جميع عناصر التفاعل */
+    * {
+      -webkit-tap-highlight-color: transparent !important;
+    }
+    
+    button, a, input, textarea {
+      -webkit-tap-highlight-color: transparent !important;
+      touch-action: manipulation;
+    }
 
     /* تأثير الظهور */
     .fade-in {
@@ -328,11 +357,30 @@
     /* قائمة الجوال */
     .mobile-menu {
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform 0.15s ease-out;
     }
 
     .mobile-menu.open {
       transform: translateX(0);
+    }
+
+    /* زر إغلاق القائمة - استجابة فورية */
+    #closeMenu {
+      transition: none !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #closeMenu:active {
+      transform: scale(0.85);
+    }
+    
+    /* جميع الروابط في القائمة - استجابة فورية */
+    #mobileMenu a {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    #mobileMenu a:active {
+      transform: scale(0.98);
     }
 
     /* Smooth scroll */
@@ -344,6 +392,233 @@
     ::selection {
       background: rgba(124, 141, 176, 0.5);
       color: white;
+    }
+
+    /* تمارين جديدة */
+    .exercise-card {
+      transition: all 0.3s ease;
+    }
+
+    .exercise-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .exercise-card.active {
+      border-color: #7c8db0;
+      background: rgba(124, 141, 176, 0.2);
+    }
+
+    /* لعبة ترتيب الأرقام */
+    .number-tile {
+      width: 60px;
+      height: 60px;
+      background: rgba(124, 141, 176, 0.5);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .number-tile:hover {
+      transform: scale(1.1);
+      background: rgba(124, 141, 176, 0.7);
+    }
+
+    .number-tile:active {
+      transform: scale(0.95);
+    }
+
+    .number-tile.correct {
+      background: rgba(74, 222, 128, 0.5);
+    }
+
+    /* لعبة الكلمات الإيجابية */
+    .word-bubble {
+      display: inline-block;
+      padding: 10px 20px;
+      background: rgba(124, 141, 176, 0.3);
+      border-radius: 20px;
+      margin: 5px;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+      font-size: 14px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .word-bubble:hover {
+      transform: scale(1.1);
+      background: rgba(124, 141, 176, 0.5);
+    }
+
+    .word-bubble:active {
+      transform: scale(0.95);
+    }
+
+    .word-bubble.selected {
+      background: rgba(74, 222, 128, 0.5);
+    }
+
+    /* لعبة البازل */
+    .puzzle-piece {
+      cursor: move;
+      transition: transform 0.2s ease;
+    }
+
+    .puzzle-piece:hover {
+      transform: scale(1.05);
+      z-index: 10;
+    }
+
+    /* مؤشر التنفس */
+    .breath-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid rgba(124, 141, 176, 0.5);
+      transition: all 4s ease-in-out;
+    }
+
+    /* خطوات التمرين */
+    .step-indicator {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .step-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .step-dot.active {
+      background: #7c8db0;
+      transform: scale(1.3);
+    }
+
+    .step-dot.completed {
+      background: rgba(74, 222, 128, 0.7);
+    }
+
+    /* رسالة التقدم */
+    .progress-message {
+      min-height: 30px;
+      text-align: center;
+      color: #9cb4cc;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* لعبة الألوان */
+    .color-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .color-circle:hover {
+      transform: scale(1.2);
+    }
+
+    /* لعبة الفرق */
+    .difference-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .difference-image {
+      width: 200px;
+      height: 150px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+      border-radius: 10px;
+      position: relative;
+      cursor: crosshair;
+    }
+
+    .difference-spot {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      animation: glow 1.5s infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
+    .difference-spot.found {
+      background: rgba(74, 222, 128, 0.7) !important;
+      animation: none;
+    }
+
+    /* عداد الوقت */
+    .timer {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #9cb4cc;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    /* شاشة النتيجة */
+    .result-screen {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .result-score {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #74dc80;
+      margin: 20px 0;
+    }
+
+    /* تأثيرات الاحتفال */
+    .confetti {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* تخصيص شريط التمرير */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(30, 41, 59, 0.5);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(124, 141, 176, 0.5);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(124, 141, 176, 0.7);
     }
   </style>
 </head>
@@ -384,11 +659,11 @@
         </a>
         
         <nav class="hidden md:flex items-center gap-2">
-          <a href="#quotes" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">اقتباسات</a>
-          <a href="#chat" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">فضفضة</a>
-          <a href="#exercises" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">تمارين</a>
-          <a href="#games" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">ألعاب</a>
-          <a href="#contact" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">تواصل</a>
+          <a href="#quotes" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">✨ اقتباسات</a>
+          <a href="#chat" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">💬 فضفضة</a>
+          <a href="#exercises" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">🧘 تمارين</a>
+          <a href="#games" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">🎮 ألعاب</a>
+          <a href="#contact" class="soft-btn px-3 py-2 rounded-xl text-sm font-medium">📬 تواصل</a>
         </nav>
 
         <div class="flex items-center gap-2">
@@ -403,12 +678,12 @@
   <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 bottom-0 w-64 glass-card z-50 p-6">
     <button id="closeMenu" class="absolute top-4 left-4 text-2xl text-slate-300">✕</button>
     <div class="mt-12 flex flex-col gap-4">
-      <a href="#quotes" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">اقتباسات</a>
-      <a href="#chat" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">فضفضة</a>
-      <a href="#exercises" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">تمارين</a>
-      <a href="#games" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">ألعاب</a>
-      <a href="#contact" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">تواصل</a>
-      <a href="#admin" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">الرسائل</a>
+      <a href="#quotes" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">✨ اقتباسات</a>
+      <a href="#chat" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">💬 فضفضة</a>
+      <a href="#exercises" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">🧘 تمارين</a>
+      <a href="#games" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">🎮 ألعاب</a>
+      <a href="#contact" class="soft-btn px-4 py-3 rounded-xl text-center font-medium">📬 تواصل</a>
+      <button onclick="showAdminSection()" class="soft-btn px-4 py-3 rounded-xl text-center font-medium w-full">🔒 الرسائل</button>
       <button id="muteBtn" class="soft-btn px-4 py-3 rounded-xl text-center font-medium w-full">🔊 الصوت</button>
     </div>
   </div>
@@ -486,40 +761,175 @@
         </div>
       </section>
 
-      <!-- التمارين -->
+      <!-- التمارين - محسنة -->
       <section id="exercises" class="py-12 fade-in">
         <h2 class="text-2xl font-bold text-white text-center mb-8">🧘 تمارين الاسترخاء</h2>
         
-        <div class="grid md:grid-cols-2 gap-6">
-          <!-- تمرين التنفس -->
+        <!-- أزرار اختيار التمرين -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+          <button class="exercise-tab active soft-btn px-4 py-2 rounded-xl" data-exercise="breathing-4-4-6">🌬️ تنفس 4-4-6</button>
+          <button class="exercise-tab soft-btn px-4 py-2 rounded-xl" data-exercise="breathing-4-7-8">🌙 تنفس للنوم 4-6-8</button>
+          <button class="exercise-tab soft-btn px-4 py-2 rounded-xl" data-exercise="sleep">😴 روتين النوم</button>
+          <button class="exercise-tab soft-btn px-4 py-2 rounded-xl" data-exercise="body-scan">🧍 المسح الجسمي</button>
+          <button class="exercise-tab soft-btn px-4 py-2 rounded-xl" data-exercise="muscle">💆 الاسترخاء العضلي</button>
+          <button class="exercise-tab soft-btn px-4 py-2 rounded-xl" data-exercise="imagine">✨ التخيل الموجه</button>
+        </div>
+
+        <!-- تمرين التنفس 4-4-6 -->
+        <div id="exercise-breathing-4-4-6" class="exercise-content">
           <div class="glass-card rounded-3xl p-6">
-            <h3 class="text-lg font-bold text-white mb-4">🌬️ تمرين التنفس العميق</h3>
-            <p class="text-slate-400 text-sm mb-6">تنفس معي... شهيق 4 ثواني، حبس 4 ثواني، زفير 6 ثواني</p>
+            <h3 class="text-lg font-bold text-white mb-4">🌬️ تمرين التنفس العميق (4-4-6)</h3>
+            <p class="text-slate-400 text-sm mb-6">تمرين ممتاز لتهدئة العقل والجسم بسرعة</p>
             
-            <div class="flex justify-center mb-6">
-              <div id="breathCircle" class="breath-circle w-40 h-40 rounded-full bg-gradient-to-br from-[#7c8db0] to-[#5a6a8a] flex items-center justify-center shadow-lg shadow-[#7c8db0]/20">
+            <div class="flex justify-center mb-6 relative">
+              <div class="breath-ring w-32 h-32 absolute"></div>
+              <div class="breath-ring w-48 h-48 absolute" style="animation-delay: 0.5s"></div>
+              <div id="breathCircle1" class="breath-circle w-40 h-40 rounded-full bg-gradient-to-br from-[#7c8db0] to-[#5a6a8a] flex items-center justify-center shadow-lg shadow-[#7c8db0]/20 z-10">
                 <div class="text-center">
-                  <div id="breathText" class="text-white font-bold text-lg">ابدأ</div>
-                  <div id="breathCount" class="text-white/70 text-3xl font-bold mt-1">—</div>
+                  <div id="breathText1" class="text-white font-bold text-lg">ابدأ</div>
+                  <div id="breathCount1" class="text-white/70 text-3xl font-bold mt-1">—</div>
                 </div>
               </div>
             </div>
             
-            <div class="flex justify-center gap-3">
-              <button id="startBreath" class="primary-btn px-5 py-2 rounded-xl font-bold">▶️ ابدأ</button>
-              <button id="stopBreath" class="soft-btn px-5 py-2 rounded-xl font-bold">⏹️ توقف</button>
+            <div class="progress-message" id="breathProgress1">اضغط "ابدأ" للبدء</div>
+            <div class="step-indicator">
+              <div class="step-dot" data-step="1"></div>
+              <div class="step-dot" data-step="2"></div>
+              <div class="step-dot" data-step="3"></div>
+            </div>
+            
+            <div class="flex justify-center gap-3 mt-6">
+              <button id="startBreath1" class="primary-btn px-5 py-2 rounded-xl font-bold">▶️ ابدأ</button>
+              <button id="stopBreath1" class="soft-btn px-5 py-2 rounded-xl font-bold">⏹️ توقف</button>
             </div>
           </div>
+        </div>
 
-          <!-- تمرين الاسترخاء العضلي -->
+        <!-- تمرين التنفس 4-7-8 -->
+        <div id="exercise-breathing-4-7-8" class="exercise-content hidden">
           <div class="glass-card rounded-3xl p-6">
-            <h3 class="text-lg font-bold text-white mb-4">💆 استرخاء عضلي تدريجي</h3>
+            <h3 class="text-lg font-bold text-white mb-4">🌙 تمرين التنفس للنوم (4-6-8)</h3>
+            <p class="text-slate-400 text-sm mb-6">تنفس بطيء يساعد على تهدئة الدماغ والاستعداد للنوم</p>
+            <p class="text-slate-500 text-xs mb-4">شهيق 4 ثواني • حبس 6 ثواني • زفير 8 ثواني</p>
+            
+            <div class="flex justify-center mb-6 relative">
+              <div class="breath-ring w-32 h-32 absolute" style="border-color: rgba(156, 180, 204, 0.5)"></div>
+              <div class="breath-ring w-48 h-48 absolute" style="border-color: rgba(156, 180, 204, 0.3)"></div>
+              <div id="breathCircle2" class="breath-circle w-40 h-40 rounded-full bg-gradient-to-br from-[#9cb4cc] to-[#7c8db0] flex items-center justify-center shadow-lg shadow-[#9cb4cc]/20 z-10">
+                <div class="text-center">
+                  <div id="breathText2" class="text-white font-bold text-lg">ابدأ</div>
+                  <div id="breathCount2" class="text-white/70 text-3xl font-bold mt-1">—</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="progress-message" id="breathProgress2">اضغط "ابدأ" للبدء</div>
+            <div class="step-indicator">
+              <div class="step-dot" data-step="1"></div>
+              <div class="step-dot" data-step="2"></div>
+              <div class="step-dot" data-step="3"></div>
+            </div>
+            
+            <div class="flex justify-center gap-3 mt-6">
+              <button id="startBreath2" class="primary-btn px-5 py-2 rounded-xl font-bold">▶️ ابدأ</button>
+              <button id="stopBreath2" class="soft-btn px-5 py-2 rounded-xl font-bold">⏹️ توقف</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- روتين النوم -->
+        <div id="exercise-sleep" class="exercise-content hidden">
+          <div class="glass-card rounded-3xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">😴 روتين النوم الهادئ</h3>
+            <p class="text-slate-400 text-sm mb-6">خطوات بسيطة تساعد جسمك وعقلك على الاسترخاء قبل النوم</p>
+            
+            <div id="sleepSteps" class="space-y-3 mb-6">
+              <div class="sleep-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="1">
+                <span class="text-2xl">🕯️</span>
+                <span class="text-slate-300">خفف الإضاءة وخلي الجو هادئ حولك</span>
+              </div>
+              <div class="sleep-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="2">
+                <span class="text-2xl">📵</span>
+                <span class="text-slate-300">أبعد الجوال 10 دقائق وركز على تنفسك</span>
+              </div>
+              <div class="sleep-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="3">
+                <span class="text-2xl">🫖</span>
+                <span class="text-slate-300">اشرب شيء دافئ يساعدك على الهدوء</span>
+              </div>
+              <div class="sleep-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="4">
+                <span class="text-2xl">🧘</span>
+                <span class="text-slate-300">اجلس براحة وركز على استرخاء جسمك</span>
+              </div>
+              <div class="sleep-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="5">
+                <span class="text-2xl">🌙</span>
+                <span class="text-slate-300">قل لنفسك: أنا آمن، جسمي يستحق الراحة</span>
+              </div>
+            </div>
+            
+            <div class="progress-message" id="sleepProgress">اضغط "ابدأ" للبدء</div>
+            <div class="flex justify-center gap-3">
+              <button id="startSleep" class="primary-btn w-full py-3 rounded-xl font-bold">▶️ ابدأ الروتين</button>
+              <button id="stopSleep" class="soft-btn px-5 py-3 rounded-xl font-bold">⏹️ توقف</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- المسح الجسمي -->
+        <div id="exercise-body-scan" class="exercise-content hidden">
+          <div class="glass-card rounded-3xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">🧍 تمرين المسح الجسمي</h3>
+            <p class="text-slate-400 text-sm mb-6">استرخِ كل جزء من جسمك ببطء من الأعلى للأسفل</p>
+            
+            <div id="bodyScanSteps" class="space-y-3 mb-6">
+              <div class="body-scan-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="1">
+                <span class="text-2xl">🧠</span>
+                <span class="text-slate-300">ركز على جبينك... اترك أي توتر هناك</span>
+              </div>
+              <div class="body-scan-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="2">
+                <span class="text-2xl">👀</span>
+                <span class="text-slate-300">استرخِ عينيك وفكك... دعهم يرتاحون</span>
+              </div>
+              <div class="body-scan-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="3">
+                <span class="text-2xl">👄</span>
+                <span class="text-slate-300">افكّ أسنانك... استرخِ لسانك وشفتيك</span>
+              </div>
+              <div class="body-scan-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="4">
+                <span class="text-2xl">👂</span>
+                <span class="text-slate-300">استرخِ كتفيك... دعهم يهبطون للأسفل</span>
+              </div>
+              <div class="body-scan-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="5">
+                <span class="text-2xl">🫁</span>
+                <span class="text-slate-300">تنفس بعمق... املأ صدرك بالهواء</span>
+              </div>
+              <div class="body-scan-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="6">
+                <span class="text-2xl">🖐️</span>
+                <span class="text-slate-300">استرخِ يديك... دع أصابعك ترتاح</span>
+              </div>
+              <div class="body-scan-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="7">
+                <span class="text-2xl">🦶</span>
+                <span class="text-slate-300">استرخِ ساقيك وقدميك... أطلق كل التوتر</span>
+              </div>
+            </div>
+            
+            <div class="progress-message" id="bodyScanProgress">اضغط "ابدأ" للبدء</div>
+            <div class="flex justify-center gap-3">
+              <button id="startBodyScan" class="primary-btn w-full py-3 rounded-xl font-bold">▶️ ابدأ التمرين</button>
+              <button id="stopBodyScan" class="soft-btn px-5 py-3 rounded-xl font-bold">⏹️ توقف</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- الاسترخاء العضلي -->
+        <div id="exercise-muscle" class="exercise-content hidden">
+          <div class="glass-card rounded-3xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">💆 الاسترخاء العضلي التدريجي</h3>
             <p class="text-slate-400 text-sm mb-6">شد العضلات ثم ارخيها... ابدأ من القدمين للرأس</p>
             
             <div id="muscleSteps" class="space-y-3 mb-6">
               <div class="muscle-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="1">
                 <span class="text-2xl">🦶</span>
-                <span class="text-slate-300">شد عضلات القدمين 5 ثواني ثم ارخيها</span>
+                <span class="text-slate-300">شد عضلات القدمين بقوة 5 ثواني ثم ارخيها</span>
               </div>
               <div class="muscle-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="2">
                 <span class="text-2xl">🦵</span>
@@ -533,9 +943,54 @@
                 <span class="text-2xl">🙆</span>
                 <span class="text-slate-300">شد عضلات الكتفين 5 ثواني ثم ارخيها</span>
               </div>
+              <div class="muscle-step flex items-center gap-3 p-3 rounded-xl bg-black/20" data-step="5">
+                <span class="text-2xl">😤</span>
+                <span class="text-slate-300">شد عضلات وجهك 5 ثواني ثم ارخيها</span>
+              </div>
             </div>
             
-            <button id="startMuscle" class="primary-btn w-full py-3 rounded-xl font-bold">▶️ ابدأ التمرين</button>
+            <div class="progress-message" id="muscleProgress">اضغط "ابدأ" للبدء</div>
+            <div class="flex justify-center gap-3">
+              <button id="startMuscle" class="primary-btn w-full py-3 rounded-xl font-bold">▶️ ابدأ التمرين</button>
+              <button id="stopMuscle" class="soft-btn px-5 py-3 rounded-xl font-bold">⏹️ توقف</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- التخيل الموجه -->
+        <div id="exercise-imagine" class="exercise-content hidden">
+          <div class="glass-card rounded-3xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">✨ التخيل الموجه</h3>
+            <p class="text-slate-400 text-sm mb-6">اختر مكاناً هادئاً وتخيل نفسك فيه بكل التفاصيل</p>
+            
+            <div id="imagineScenes" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+              <div class="scene-card p-4 rounded-xl bg-black/20 text-center cursor-pointer hover:bg-black/30" data-scene="beach">
+                <div class="text-3xl mb-2">🏖️</div>
+                <div class="text-sm text-slate-300">شاطئ هادئ</div>
+              </div>
+              <div class="scene-card p-4 rounded-xl bg-black/20 text-center cursor-pointer hover:bg-black/30" data-scene="forest">
+                <div class="text-3xl mb-2">🌲</div>
+                <div class="text-sm text-slate-300">غابة خضراء</div>
+              </div>
+              <div class="scene-card p-4 rounded-xl bg-black/20 text-center cursor-pointer hover:bg-black/30" data-scene="mountain">
+                <div class="text-3xl mb-2">🏔️</div>
+                <div class="text-sm text-slate-300">قمة جبل</div>
+              </div>
+              <div class="scene-card p-4 rounded-xl bg-black/20 text-center cursor-pointer hover:bg-black/30" data-scene="night">
+                <div class="text-3xl mb-2">🌙</div>
+                <div class="text-sm text-slate-300">سماء نجوم</div>
+              </div>
+            </div>
+            
+            <div id="imagineContent" class="p-4 rounded-xl bg-black/30 mb-4 min-h-[100px]">
+              <p class="text-slate-400 text-center">اختر مشهداً للبدء...</p>
+            </div>
+            
+            <div class="progress-message" id="imagineProgress"></div>
+            <div class="flex justify-center gap-3">
+              <button id="startImagine" class="primary-btn px-5 py-3 rounded-xl font-bold">▶️ ابدأ</button>
+              <button id="stopImagine" class="soft-btn px-5 py-3 rounded-xl font-bold">⏹️ توقف</button>
+            </div>
           </div>
         </div>
       </section>
@@ -544,8 +999,18 @@
       <section id="games" class="py-12 fade-in">
         <h2 class="text-2xl font-bold text-white text-center mb-8">🎮 ألعاب مسلية للاسترخاء</h2>
         
-        <div class="grid md:grid-cols-2 gap-6">
-          <!-- لعبة الذاكرة -->
+        <!-- أزرار اختيار اللعبة -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+          <button class="game-tab active soft-btn px-4 py-2 rounded-xl" data-game="memory">🧠 الذاكرة</button>
+          <button class="game-tab soft-btn px-4 py-2 rounded-xl" data-game="draw">🎨 الرسم</button>
+          <button class="game-tab soft-btn px-4 py-2 rounded-xl" data-game="numbers">🔢 ترتيب الأرقام</button>
+          <button class="game-tab soft-btn px-4 py-2 rounded-xl" data-game="words">💬 كلمات إيجابية</button>
+          <button class="game-tab soft-btn px-4 py-2 rounded-xl" data-game="colors">🎨 الألوان المهدئة</button>
+          <button class="game-tab soft-btn px-4 py-2 rounded-xl" data-game="relax">🌸 الراحة</button>
+        </div>
+
+        <!-- لعبة الذاكرة -->
+        <div id="game-memory" class="game-content">
           <div class="glass-card rounded-3xl p-6">
             <h3 class="text-lg font-bold text-white mb-4">🧠 لعبة الذاكرة</h3>
             <p class="text-slate-400 text-sm mb-4">اقلب البطاقات وطابق الأزواج</p>
@@ -557,8 +1022,10 @@
               <button id="resetMemory" class="soft-btn px-4 py-2 rounded-xl text-sm">🔄 إعادة</button>
             </div>
           </div>
+        </div>
 
-          <!-- لعبة التلوين -->
+        <!-- لعبة الرسم -->
+        <div id="game-draw" class="game-content hidden">
           <div class="glass-card rounded-3xl p-6">
             <h3 class="text-lg font-bold text-white mb-4">🎨 لوحة الرسم الحر</h3>
             <p class="text-slate-400 text-sm mb-4">ارسم واستمتع... فرّغ مشاعرك بالألوان</p>
@@ -574,12 +1041,34 @@
                 <button class="color-btn w-8 h-8 rounded-full bg-blue-400 border-2 border-transparent" data-color="#60a5fa"></button>
                 <button class="color-btn w-8 h-8 rounded-full bg-purple-400 border-2 border-transparent" data-color="#c084fc"></button>
               </div>
-              <button id="clearCanvas" class="soft-btn px-4 py-2 rounded-xl text-sm">🗑️ مسح</button>
+              <div class="flex gap-2">
+                <button id="clearCanvas" class="soft-btn px-4 py-2 rounded-xl text-sm">🗑️ مسح</button>
+                <button id="saveCanvas" class="primary-btn px-4 py-2 rounded-xl text-sm">💾 حفظ</button>
+              </div>
             </div>
           </div>
+        </div>
 
-          <!-- لعبة الفقاعات -->
-          <div class="glass-card rounded-3xl p-6 md:col-span-2">
+        <!-- لعبة الراحة -->
+        <div id="game-relax" class="game-content">
+          <div class="glass-card rounded-3xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">🌸 لعبة الراحة اليومية</h3>
+            <p class="text-slate-400 text-sm mb-4">تمرين مهدئ جديد كل يوم... خذ نفس عميق واتبع التعليمات</p>
+            
+            <div id="relaxContent" class="text-center py-6">
+              <div class="text-5xl mb-4" id="relaxEmoji">🌸</div>
+              <p class="text-xl text-white mb-4" id="relaxText">اضغط "ابدأ" للبدء</p>
+              <div id="relaxTimer" class="text-3xl text-[#9cb4cc] font-bold mb-4">--:--</div>
+            </div>
+            
+            <div class="flex justify-center gap-3 mt-4">
+              <button id="startRelax" class="primary-btn px-6 py-3 rounded-xl font-bold">🌸 ابدأ</button>
+              <button id="resetRelax" class="soft-btn px-6 py-3 rounded-xl font-bold">🔄 تمرين جديد</button>
+            </div>
+          </div>
+        </div>
+        <div id="game-bubbles" class="game-content hidden">
+          <div class="glass-card rounded-3xl p-6">
             <h3 class="text-lg font-bold text-white mb-4">🫧 فرقعة الفقاعات</h3>
             <p class="text-slate-400 text-sm mb-4">اضغط على الفقاعات لفرقعتها... مريح للأعصاب!</p>
             
@@ -588,6 +1077,63 @@
             <div class="flex justify-between items-center mt-4">
               <span class="text-slate-300">النقاط: <span id="bubbleScore">0</span></span>
               <button id="startBubbles" class="primary-btn px-4 py-2 rounded-xl text-sm">🫧 ابدأ اللعب</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- لعبة ترتيب الأرقام -->
+        <div id="game-numbers" class="game-content hidden">
+          <div class="glass-card rounded-3xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">🔢 ترتيب الأرقام</h3>
+            <p class="text-slate-400 text-sm mb-4">اضغط على الأرقام بالترتيب من 1 إلى 10</p>
+            
+            <div class="timer" id="numbersTimer">00:00</div>
+            
+            <div id="numbersGame" class="flex flex-wrap justify-center gap-3 mb-4"></div>
+            
+            <div class="flex justify-between items-center">
+              <span class="text-slate-300">الرقم التالي: <span id="nextNumber">1</span></span>
+              <button id="resetNumbers" class="soft-btn px-4 py-2 rounded-xl text-sm">🔄 إعادة</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- لعبة الكلمات الإيجابية -->
+        <div id="game-words" class="game-content hidden">
+          <div class="glass-card rounded-3xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">💬 كلمات إيجابية</h3>
+            <p class="text-slate-400 text-sm mb-4">اختر الكلمات الإيجابية لتعزيز مشاعرك</p>
+            
+            <div id="wordsGame" class="text-center mb-4"></div>
+            
+            <div class="text-center">
+              <p class="text-slate-400 mb-2">الكلمات المختارة: <span id="selectedWords">0</span>/10</p>
+              <div id="selectedWordsList" class="flex flex-wrap justify-center gap-2 min-h-[40px]"></div>
+            </div>
+            
+            <div class="flex justify-center mt-4">
+              <button id="resetWords" class="soft-btn px-4 py-2 rounded-xl text-sm">🔄 إعادة</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- لعبة الألوان المهدئة -->
+        <div id="game-colors" class="game-content hidden">
+          <div class="glass-card rounded-3xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">🎨 الألوان المهدئة</h3>
+            <p class="text-slate-400 text-sm mb-4">اضغط على الدوائر الملونة للاسترخاء ومشاهدة التأثيرات</p>
+            
+            <div id="colorCircles" class="flex flex-wrap justify-center gap-4 mb-4">
+              <div class="color-circle bg-blue-400" data-color="blue"></div>
+              <div class="color-circle bg-purple-400" data-color="purple"></div>
+              <div class="color-circle bg-green-400" data-color="green"></div>
+              <div class="color-circle bg-pink-400" data-color="pink"></div>
+              <div class="color-circle bg-yellow-400" data-color="yellow"></div>
+              <div class="color-circle bg-teal-400" data-color="teal"></div>
+            </div>
+            
+            <div id="colorMessage" class="text-center p-4 rounded-xl bg-black/30">
+              <p class="text-slate-400">اختر لوناً للبدء...</p>
             </div>
           </div>
         </div>
@@ -679,6 +1225,11 @@
     <a href="https://instagram.com/_itlulp" target="_blank" class="inline-block mt-4 text-slate-400 hover:text-white transition-colors">
       📸 @_itlulp
     </a>
+    <div class="mt-4">
+      <button onclick="showAdminSection()" class="inline-flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm bg-transparent border-none cursor-pointer">
+        🔒 الرسائل
+      </button>
+    </div>
   </footer>
 
   <script>
@@ -708,7 +1259,10 @@
       { ar: "أنت تستحق الراحة والسلام 🕊️", en: "You deserve rest and peace" },
       { ar: "الشفاء ليس خطياً، وبعض الأيام أسهل من غيرها 📊", en: "Healing is not linear, and some days are easier than others" },
       { ar: "لا تحتاج لإصلاح كل شيء اليوم 🛠️", en: "You don't need to fix everything today" },
-      { ar: "الصمود يتطلب شجاعة، وأنت شجاع 💪", en: "Resilience takes courage, and you are courageous" }
+      { ar: "الصمود يتطلب شجاعة، وأنت شجاع 💪", en: "Resilience takes courage, and you are courageous" },
+      { ar: "أنت تستحق الحب غير المشروط 💗", en: "You deserve unconditional love" },
+      { ar: "الهدنة مع النفس بداية الشفاء 🌱", en: "Truce with oneself is the beginning of healing" },
+      { ar: "لست أخطاءك... أنت تقدمك 🌈", en: "You are not your mistakes... you are your progress" }
     ];
 
     const AI_RESPONSES = {
@@ -760,16 +1314,16 @@
           en: "I'm with you... take your time crying 💙\n\nCrying empties the heart. Don't rush.\n\nBut let me tell you:\n\n💡 After you finish crying:\n\n1. Drink cold water\n2. Take a deep breath\n3. Wipe your face\n4. Rest a bit\n\nI won't leave... I'm here when you're ready 💜"
         }
       ],
-      happy: [
-        { 
-          ar: "ماشاء الله! يسعدني جداً إنك مبسوط اليوم! 😊✨\n\nالفرح نعمة كبيرة، ووجودك هنا عشان تشاركني فرحتك يدل على قلب جميل. شكراً إنك شاركتني هاللحظة الحلوة 💜\n\nخليني أسألك:\n\n🌟 شو اللي فرّحك اليوم؟ حابب تحكيلي عنه؟\nكيف تحس الحين؟ خفيف؟ مطمئن؟ ممتن؟ سعيد؟\nتبغى تحتفل بهالشعور الحلو بطريقة معينة؟\n\n💡 كيف تحافظ على هالشعور الجميل:\n\n1. اكتب 3 أشياء ممتن لها اليوم - الامتنان يضاعف الفرح\n2. شارك فرحتك مع شخص تحبه - الفرح يكبر لما ننشره\n3. سوِّ نشاط تحبه عشان تعزز هالشعور\n4. خذ لحظة تتذكر فيها هاللحظة - بعدين لما تحتاجها ترجعلها\n5. صور اللحظة - صورة، فيديو، أو حتى ملاحظة\n\n🌈 الحقيقة الحلوة:\n\nاللحظات الحلوة هذي هي اللي تستاهل نعيش عشانها. وأنت تستاهل كل الفرح والسعادة في الدنيا. خليك متمسك بهالشعور، وتذكره في الأيام الصعبة.\n\nوتذكر: الفرح مو أناني. فرحك يفرّح اللي حواليك. ابتسامتك تضيء يوم شخص ثاني. فخليك مبسوط وانشر الطاقة الحلوة هذي 🌻\n\nحابب تحكيلي أكثر عن يومك؟ أو عن اللي فرّحك؟ أحب أسمع! 💙", 
-          en: "Wonderful! I'm so happy you're happy today! 😊✨\n\nJoy is a big blessing, and being here to share your happiness with me shows a beautiful heart. Thank you for sharing this sweet moment with me 💜\n\nLet me ask you:\n\n🌟 What made you happy today? Want to tell me about it?\nHow do you feel now? Light? Content? Grateful? Happy?\nWant to celebrate this beautiful feeling in a specific way?\n\n💡 How to keep this beautiful feeling:\n\n1. Write 3 things you're grateful for today - gratitude multiplies joy\n2. Share your joy with someone you love - joy grows when we spread it\n3. Do an activity you love to reinforce this feeling\n4. Take a moment to remember this moment - later when you need it, return to it\n5. Capture the moment - a photo, video, or even a note\n\n🌈 The sweet truth:\n\nThese sweet moments are what we deserve to live for. And you deserve all the joy and happiness in the world. Hold on to this feeling, and remember it on difficult days.\n\nRemember: joy isn't selfish. Your happiness makes those around you happy. Your smile lights up someone else's day. So stay happy and spread this sweet energy 🌻\n\nWant to tell me more about your day? Or about what made you happy? I'd love to hear! 💙" 
-        }
-      ],
       angry: [
         {
           ar: "أشوفك غضبان... الغضب شعور قوي ومش طبيعي 💙\n\nأحياناً الناس والأمور تغضبنا، وهذا حقك.\n\nخليني أسألك:\n\n🔥 شو اللي غضبك؟ صار شي معين؟ شخص موقف؟\nمن متى وأنت تحس بالغضب؟\nحس إنك تحتاج تفرغ الغضب؟\n\n💡 أشياء تساعد تفرغ الغضب:\n\n1. العد للـ 10 ببطء\n2. خذ نفس عميق\n3. اترك المكان لبعض الوقت\n4. اكتب اللي في قلبك\n5. حرك جسمك - مشي سريع أو تمرين\n6. اضرب مخدة - هذا يفرغ\n\n🌟 تذكر:\n\nالغضب مو طولك. بيعدي.\n\nتحتاج تحكيلي عن اللي غضبك؟ أنا أسمعك 💜",
           en: "I see you're angry... anger is a strong and natural feeling 💙\n\nSometimes people and situations make us angry, and that's your right.\n\nLet me ask you:\n\n🔥 What made you angry? Did something specific happen? A person? A situation?\nHow long have you been feeling angry?\nDo you feel you need to release the anger?\n\n💡 Things that help release anger:\n\n1. Count to 10 slowly\n2. Take a deep breath\n3. Leave the place for a while\n4. Write what's in your heart\n5. Move your body - fast walk or exercise\n6. Hit a pillow - this releases\n\n🌟 Remember:\n\nAnger won't last forever. It will pass.\n\nDo you need to tell me what made you angry? I'm listening 💜"
+        }
+      ],
+      happy: [
+        { 
+          ar: "ماشاء الله! يسعدني جداً إنك مبسوط اليوم! 😊✨\n\nالفرح نعمة كبيرة، ووجودك هنا عشان تشاركني فرحتك يدل على قلب جميل. شكراً إنك شاركتني هاللحظة الحلوة 💜\n\nخليني أسألك:\n\n🌟 شو اللي فرّحك اليوم؟ حابب تحكيلي عنه؟\nكيف تحس الحين؟ خفيف؟ مطمئن؟ ممتن؟ سعيد؟\nتبغى تحتفل بهالشعور الحلو بطريقة معينة؟\n\n💡 كيف تحافظ على هالشعور الجميل:\n\n1. اكتب 3 أشياء ممتن لها اليوم - الامتنان يضاعف الفرح\n2. شارك فرحتك مع شخص تحبه - الفرح يكبر لما ننشره\n3. سوِّ نشاط تحبه عشان تعزز هالشعور\n4. خذ لحظة تتذكر فيها هاللحظة - بعدين لما تحتاجها ترجعلها\n5. صور اللحظة - صورة، فيديو، أو حتى ملاحظة\n\n🌈 الحقيقة الحلوة:\n\nاللحظات الحلوة هذي هي اللي تستاهل نعيش عشانها. وأنت تستاهل كل الفرح والسعادة في الدنيا. خليك متمسك بهالشعور، وتذكره في الأيام الصعبة.\n\nوتذكر: الفرح مو أناني. فرحك يفرّح اللي حواليك. ابتسامتك تضيء يوم شخص ثاني. فخليك مبسوط وانشر الطاقة الحلوة هذي 🌻\n\nحابب تحكيلي أكثر عن يومك؟ أو عن اللي فرّحك؟ أحب أسمع! 💙", 
+          en: "Wonderful! I'm so happy you're happy today! 😊✨\n\nJoy is a big blessing, and being here to share your happiness with me shows a beautiful heart. Thank you for sharing this sweet moment with me 💜\n\nLet me ask you:\n\n🌟 What made you happy today? Want to tell me about it?\nHow do you feel now? Light? Content? Grateful? Happy?\nWant to celebrate this beautiful feeling in a specific way?\n\n💡 How to keep this beautiful feeling:\n\n1. Write 3 things you're grateful for today - gratitude multiplies joy\n2. Share your joy with someone you love - joy grows when we spread it\n3. Do an activity you love to reinforce this feeling\n4. Take a moment to remember this moment - later when you need it, return to it\n5. Capture the moment - a photo, video, or even a note\n\n🌈 The sweet truth:\n\nThese sweet moments are what we deserve to live for. And you deserve all the joy and happiness in the world. Hold on to this feeling, and remember it on difficult days.\n\nRemember: joy isn't selfish. Your happiness makes those around you happy. Your smile lights up someone else's day. So stay happy and spread this sweet energy 🌻\n\nWant to tell me more about your day? Or about what made you happy? I'd love to hear! 💙" 
         }
       ],
       greeting: [
@@ -780,7 +1334,7 @@
       ],
       default: [
         { 
-          ar: "أسمعك... وأشوف إنك حابب تتكلم أكثر 💙\n\nخذ راحتك... كل ما تشاركني تفاصيل أكثر، كل ما أقدر أفهمك أحسن وأساعدك بشكل أفضل.\n\nأنا هنا أسمعك بدون حكم.\n\n🌟 ممكن تحكيلي:\n\n• شو اللي صار بالضبط؟\n• كيف تحس تجاه الموضوع؟\n• شو اللي تحتاجه الحين؟ دعم؟ نصيحة؟ حلول؟ أو بس حد يسمعك؟\n\nأنا هنا معك... ما بحكم وما بستعجل. خذ وقتك وقلي اللي في بالك 🤍", 
+          ar: "أسمعك... وأشوف إنك حابب تتكلم أكثر 💙\n\nخذ راحتك... كل ما تشاركني تفاصيل أكثر، كل ما أقدر أفهمك أحسن وأساعدك بشكل أفضل.\n\nأنا هنا أسمعك بدون حكم.\n\n🌟 ممكن تحكيلي:\n\n• شو اللي صار بالضبط؟\n• كيف تحس تجاه الموضوع؟\n• شو اللي تحتاجه الحين؟ دعم؟ نصيحة؟ حلول؟ أو بس حد يسمعك؟\n\nأنا هنا معك... ما بحكم ولا بستعجل. خذ وقتك وقلي اللي في بالك 🤍", 
           en: "I'm listening... and I see you want to talk more 💙\n\nTake your time... the more details you share, the better I can understand and help you.\n\nI'm here to listen without judgment.\n\n🌟 Can you tell me:\n\n• What exactly happened?\n• How do you feel about it?\n• What do you need now? Support? Advice? Solutions? Or just someone to listen?\n\nI'm here with you... I won't judge and I won't rush you. Take your time and tell me what's on your mind 🤍" 
         },
         { 
@@ -805,6 +1359,57 @@
       greeting: ['هلا', 'مرحبا', 'السلام', 'هاي', 'hi', 'hello', 'hey', 'صباح', 'مساء', 'السلام عليكم', 'marhaba']
     };
 
+    // الكلمات الإيجابية
+    const POSITIVE_WORDS = [
+      'أمل', 'حب', 'سلام', 'قوة', 'إيمان', 'صبر', 'شكر', 'تفاؤل', ' courage', 'joy', 'peace',
+      'محبة', 'رحمة', 'هدوء', 'طمأنينة', 'ثقة', 'أمان', 'سعادة', 'فرح', 'نجاح', 'إنجاز',
+      'optimism', 'gratitude', 'compassion', 'kindness', 'hope', 'faith', 'love', 'strength'
+    ];
+
+    // رسائل الألوان
+    const COLOR_MESSAGES = {
+      blue: { ar: 'الأزرق يرمز للهدوء والسكينة... تخيل نفسك عند البحر 🌊', en: 'Blue symbolizes calm and serenity... imagine yourself by the sea 🌊' },
+      purple: { ar: 'البنفسجي لون الروح والصوفية... يشعرك بالعمق والأمان 💜', en: 'Purple is the color of spirit and mysticism... makes you feel deep and safe 💜' },
+      green: { ar: 'الأخضر لون الطبيعة والنمو... تخيل نفسك في غابة خضراء 🌲', en: 'Green is the color of nature and growth... imagine yourself in a green forest 🌲' },
+      pink: { ar: 'الوردي لون الحب واللطف... شعّر بحب لنفسك 💗', en: 'Pink is the color of love and gentleness... feel love for yourself 💗' },
+      yellow: { ar: 'الأصفر لون الشفاء والدفء... تخيل شمس دافئة تضيء عليك ☀️', en: 'Yellow is the color of healing and warmth... imagine a warm sun shining on you ☀️' },
+      teal: { ar: 'التركواز لون التوازن والصفاء... اشعر بالسكينة داخل قلبك 💎', en: 'Teal is the color of balance and clarity... feel the serenity in your heart 💎' }
+    };
+
+    // تمارين الراحة اليومية
+    const DAILY_RELAX_EXERCISES = [
+      { emoji: '🌸', ar: 'أغمض عينيك... تخيل زهرة تتفتح ببطء في حديقة هادئة', en: 'Close your eyes... imagine a flower slowly opening in a quiet garden', duration: 30 },
+      { emoji: '🌊', ar: 'تخيل موجات هادئة تداعب شاطئ رملي... تنفس مع كل موجة', en: 'Imagine gentle waves touching a sandy beach... breathe with each wave', duration: 30 },
+      { emoji: '☁️', ar: 'تخيل سحابة بيضاء ناعمة تحمل كل همومك بعيداً', en: 'Imagine a soft white cloud carrying all your worries away', duration: 30 },
+      { emoji: '🦋', ar: 'تخيل فراشة تهبط برفق على كتفك... أحس بالخفة والسلام', en: 'Imagine a butterfly gently landing on your shoulder... feel lightness and peace', duration: 30 },
+      { emoji: '🌙', ar: 'تخيل نور القمر يغمر غرفتك... كل شيء هادئ وآمن', en: 'Imagine moonlight filling your room... everything is quiet and safe', duration: 30 },
+      { emoji: '🍃', ar: 'تخيل ورقة شجر تتسقط برفق... كل شيء يهدأ ببطء', en: 'Imagine a leaf gently falling... everything slowly calms down', duration: 30 },
+      { emoji: '💎', ar: 'تخيل جوهرة زرقاء تتوهج في قلبك... اشعر بالهدوء والقوة', en: 'Imagine a blue gem glowing in your heart... feel calm and strength', duration: 30 },
+      { emoji: '🌅', ar: 'تخيل شمس تشرق ببطء... يوم جديد مليء بالأمل والفرح', en: 'Imagine a sun slowly rising... a new day full of hope and joy', duration: 30 },
+      { emoji: '🕊️', ar: 'تخيل حمامة بيضاء تحلق في السماء... حرية وسلام', en: 'Imagine a white dove flying in the sky... freedom and peace', duration: 30 },
+      { emoji: '⭐', ar: 'تخيل نجمة صغيرة تضيء في قلبك... نور الأمل', en: 'Imagine a small star shining in your heart... light of hope', duration: 30 }
+    ];
+
+    // مشاهد التخيل
+    const IMAGINE_SCENES = {
+      beach: {
+        ar: "🏖️ تخيل نفسك الآن على شاطئ هادئ...\n\nتسمع صوت أمواج البحر تداعب الرمال...\nنشعر بحرارة الشمس الدافئة على بشرتك...\nنسماء زرقاء صافية تمتد إلى ما لا نهاية...\nنسيم عليل يلامس وجهك برفق...\n\nأنت آمن... مرتاح... في سلام.\n\nخذ نفس عميق... اشعر بالهدوء يملأ كل كيانك.",
+        en: "🏖️ Imagine yourself now on a calm beach...\n\nYou hear the sound of waves gently caressing the sand...\nYou feel the warmth of the sun on your skin...\nA clear blue sky stretching endlessly...\nA gentle breeze touching your face softly...\n\nYou are safe... relaxed... at peace.\n\nTake a deep breath... feel the calm filling your entire being."
+      },
+      forest: {
+        ar: "🌲 تخيل نفسك في غابة خضراء هادئة...\n\nأشجار عالية تحميك وتظللك...\nأغاني الطيور تعزف أجمل الألحان...\nنهر صافٍ يتدفق بين الأشجار...\nهواء نقِي مليء برائحة الصنوبر والأعشاب...\n\nأنت محاط بالطبيعة... بسلام حقيقي.\n\nاستنشق بعمق... اشعر بالطاقة الإيجابية.",
+        en: "🌲 Imagine yourself in a quiet green forest...\n\nTall trees protecting and shading you...\nBirds singing the most beautiful melodies...\nA clear river flowing between the trees...\nPure air filled with the scent of pine and herbs...\n\nYou are surrounded by nature... true peace.\n\nBreathe deeply... feel the positive energy."
+      },
+      mountain: {
+        ar: "🏔️ تخيل نفسك على قمة جبل عالٍ...\n\nأنت فوق كل الهموم والقلق...\nمنظر رائع يمتد أمامك...\nغيوم بيضاء تمر تحتك...\nهواء نقي ومنعش...\n\nأنت قوي... فوق كل الصعاب.\n\nأشعر بالحرية والقوة تملاك.",
+        en: "🏔️ Imagine yourself on top of a high mountain...\n\nYou are above all worries and anxiety...\nA wonderful view stretches before you...\nWhite clouds passing beneath you...\nPure, refreshing air...\n\nYou are strong... above all difficulties.\n\nFeel freedom and strength filling you."
+      },
+      night: {
+        ar: "🌙 تخيل نفسك تحت سماء مليئة بالنجوم...\n\nآلاف النجوم تتلألأ فوقك...\nقمر منير ينير ليلك...\nسكينة عميكة تحيط بك...\nلا صوت إلا همسة النسيم...\n\nأنت صغير في هذا الكون العظيم...\nومع ذلك... مهم جداً.\n\nاشعر بسلام الليل يغمر قلبك.",
+        en: "🌙 Imagine yourself under a sky full of stars...\n\nThousands of stars twinkling above you...\nA bright moon illuminating your night...\nDeep serenity surrounding you...\nNo sound but the whisper of the breeze...\n\nYou are small in this vast universe...\nAnd yet... very important.\n\nFeel the peace of the night embracing your heart."
+      }
+    };
+
     // ========== المتغيرات ==========
     let isMuted = false;
     let audioContext = null;
@@ -817,6 +1422,17 @@
     let memoryMoves = 0;
     let bubbleScore = 0;
     let bubbleInterval = null;
+    let breathInterval1 = null;
+    let breathInterval2 = null;
+    let bodyScanInterval = null;
+    let muscleInterval = null;
+    let imagineInterval = null;
+    let sleepInterval = null;
+    let numbers = [];
+    let currentNumber = 1;
+    let numbersTimer = null;
+    let selectedWords = [];
+    let currentLang = 'ar';
 
     // ========== الدوال المساعدة ==========
     function $(sel) { return document.querySelector(sel); }
@@ -938,7 +1554,7 @@
     }
 
     function scheduleLightning() {
-      const delay = 12000 + Math.random() * 25000; // كل 12-37 ثانية
+      const delay = 12000 + Math.random() * 25000;
       setTimeout(() => {
         triggerLightning();
         scheduleLightning();
@@ -946,10 +1562,17 @@
     }
 
     // ========== صوت المطر ==========
+    let audioInitialized = false;
+    
     function initAudio() {
-      if (audioContext) return;
+      if (audioInitialized || audioContext) return;
       
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      audioInitialized = true;
+      
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
       
       // إنشاء صوت المطر الواقعي
       const bufferSize = 2 * audioContext.sampleRate;
@@ -979,6 +1602,35 @@
       filter.connect(gain);
       gain.connect(audioContext.destination);
       rainSource.start();
+    }
+    
+    let audioReady = false;
+
+    function ensureAudioStarted() {
+      if (!audioContext) {
+        initAudio();
+      }
+      if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+      if (audioContext && audioContext.state === 'running' && !audioReady) {
+        audioReady = true;
+        detachAudioUnlockListeners();
+      }
+    }
+
+    function attachAudioUnlockListeners() {
+      ['touchstart', 'pointerdown', 'mousedown', 'click', 'keydown'].forEach(evt => {
+        document.addEventListener(evt, ensureAudioStarted, { passive: true, capture: true });
+      });
+      document.addEventListener('visibilitychange', ensureAudioStarted);
+    }
+
+    function detachAudioUnlockListeners() {
+      ['touchstart', 'pointerdown', 'mousedown', 'click', 'keydown'].forEach(evt => {
+        document.removeEventListener(evt, ensureAudioStarted, { capture: true });
+      });
+      document.removeEventListener('visibilitychange', ensureAudioStarted);
     }
 
     // ========== الاقتباسات ==========
@@ -1014,17 +1666,12 @@
 
     function speakQuote() {
       const enText = $('#quoteEn').textContent;
-      
-      // إزالة الإيموجيات من النص
       const cleanEnText = enText.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '').trim();
       
-      // إيقاف أي نطق سابق
       speechSynthesis.cancel();
       
-      // تحميل الأصوات
       let voices = speechSynthesis.getVoices();
       
-      // إذا الأصوات ما تحملت، انتظر شوي
       if (voices.length === 0) {
         speechSynthesis.onvoiceschanged = () => {
           voices = speechSynthesis.getVoices();
@@ -1035,7 +1682,6 @@
       }
       
       function speakWithVoices() {
-        // البحث عن أفضل صوت إنجليزي أنثوي رقيق وهادئ
         const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.toLowerCase().includes('female'))
                           || voices.find(v => v.lang === 'en-US' && (v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('fiona') || v.name.toLowerCase().includes('karen')))
                           || voices.find(v => v.lang === 'en-US' && (v.name.toLowerCase().includes('david') === false && v.name.toLowerCase().includes('daniel') === false))
@@ -1045,9 +1691,9 @@
         
         const enUtter = new SpeechSynthesisUtterance(cleanEnText);
         enUtter.lang = 'en-US';
-        enUtter.rate = 1.0; // سرعة عادية
-        enUtter.pitch = 1.08; // نبرة أنثوية رقيقة
-        enUtter.volume = 0.85; // صوت هادئ ومريح
+        enUtter.rate = 1.0;
+        enUtter.pitch = 1.05;
+        enUtter.volume = 0.9;
         if (englishVoice) enUtter.voice = englishVoice;
         
         speechSynthesis.speak(enUtter);
@@ -1081,7 +1727,6 @@
     function addMessage(text, isUser) {
       const chatBox = $('#chatBox');
       
-      // إزالة رسالة الترحيب
       if (chatBox.querySelector('.text-center')) {
         chatBox.innerHTML = '';
       }
@@ -1089,7 +1734,6 @@
       const msgDiv = document.createElement('div');
       msgDiv.className = `${isUser ? 'user-msg mr-auto' : 'ai-msg ml-auto'} max-w-[85%] p-4 mb-3`;
       
-      // تحويل الأسطر الجديدة إلى فواصل
       const formattedText = text.replace(/\n\n/g, '</p><p class="mt-3">').replace(/\n/g, '<br>');
       
       msgDiv.innerHTML = `<p class="text-white leading-relaxed">${formattedText}</p>`;
@@ -1097,14 +1741,12 @@
       chatBox.appendChild(msgDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
       
-      // حفظ المحادثة
       saveChat();
     }
 
     function showTyping() {
       const chatBox = $('#chatBox');
       
-      // إزالة رسالة الترحيب
       if (chatBox.querySelector('.text-center')) {
         chatBox.innerHTML = '';
       }
@@ -1165,73 +1807,383 @@
       `;
     }
 
-    // ========== تمرين التنفس ==========
-    let breathInterval = null;
-    let breathPhase = 0;
-    const breathPhases = [
-      { text: 'شهيق 🌬️', count: 4, scale: 1.3 },
-      { text: 'حبس ⏸️', count: 4, scale: 1.3 },
-      { text: 'زفير 💨', count: 6, scale: 1 }
+    // ========== تبويبات التمارين ==========
+    $$('.exercise-tab').forEach(tab => {
+      tab.onclick = () => {
+        $$('.exercise-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        const exerciseId = tab.dataset.exercise;
+        $$('.exercise-content').forEach(c => c.classList.add('hidden'));
+        $(`#exercise-${exerciseId}`).classList.remove('hidden');
+        
+        stopAllExercises();
+      };
+    });
+
+    function stopAllExercises() {
+      stopBreathing1();
+      stopBreathing2();
+      stopSleepRoutine();
+      stopBodyScan();
+      stopMuscle();
+      stopImagine();
+    }
+
+    // ========== تمرين التنفس 4-4-6 ==========
+    const breathPhases1 = [
+      { text: 'شهيق 🌬️', count: 4, scale: 1.3, progress: 'شهيق بعمق...' },
+      { text: 'حبس ⏸️', count: 4, scale: 1.3, progress: 'احبس نفسك...' },
+      { text: 'زفير 💨', count: 6, scale: 1, progress: 'زفير ببطء...' }
     ];
 
-    function startBreathing() {
-      if (breathInterval) return;
+    function startBreathing1() {
+      if (breathInterval1) return;
       
-      breathPhase = 0;
-      let count = breathPhases[0].count;
+      let phase = 0;
+      let count = breathPhases1[0].count;
       
-      updateBreathUI();
+      updateBreathUI1();
       
-      breathInterval = setInterval(() => {
+      breathInterval1 = setInterval(() => {
         count--;
-        $('#breathCount').textContent = count;
+        $('#breathCount1').textContent = count;
         
         if (count <= 0) {
-          breathPhase = (breathPhase + 1) % 3;
-          count = breathPhases[breathPhase].count;
-          updateBreathUI();
+          phase = (phase + 1) % 3;
+          count = breathPhases1[phase].count;
+          updateBreathUI1();
+          updateStepDots('#exercise-breathing-4-4-6', phase + 1);
         }
       }, 1000);
     }
 
-    function updateBreathUI() {
-      const phase = breathPhases[breathPhase];
-      $('#breathText').textContent = phase.text;
-      $('#breathCount').textContent = phase.count;
-      $('#breathCircle').style.transform = `scale(${phase.scale})`;
+    function updateBreathUI1() {
+      const phase = breathPhases1[phase];
+      $('#breathText1').textContent = phase.text;
+      $('#breathCount1').textContent = phase.count;
+      $('#breathCircle1').style.transform = `scale(${phase.scale})`;
+      $('#breathProgress1').textContent = phase.progress;
     }
 
-    function stopBreathing() {
-      if (breathInterval) {
-        clearInterval(breathInterval);
-        breathInterval = null;
+    function stopBreathing1() {
+      if (breathInterval1) {
+        clearInterval(breathInterval1);
+        breathInterval1 = null;
       }
-      $('#breathText').textContent = 'ابدأ';
-      $('#breathCount').textContent = '—';
-      $('#breathCircle').style.transform = 'scale(1)';
+      $('#breathText1').textContent = 'ابدأ';
+      $('#breathCount1').textContent = '—';
+      $('#breathCircle1').style.transform = 'scale(1)';
+      $('#breathProgress1').textContent = 'اضغط "ابدأ" للبدء';
+      resetStepDots('#exercise-breathing-4-4-6');
+    }
+
+    // ========== تمرين التنفس 4-7-8 ==========
+    const breathPhases2 = [
+      { text: 'شهيق 🌬️', count: 4, scale: 1.3, progress: 'شهيق هادئ...' },
+      { text: 'حبس ⏸️', count: 6, scale: 1.3, progress: 'احبس نفسك بلطف...' },
+      { text: 'زفير 💨', count: 8, scale: 1, progress: 'زفير طويل ومريح...' }
+    ];
+
+    function startBreathing2() {
+      if (breathInterval2) return;
+      
+      let phase = 0;
+      let count = breathPhases2[0].count;
+      
+      updateBreathUI2();
+      
+      breathInterval2 = setInterval(() => {
+        count--;
+        $('#breathCount2').textContent = count;
+        
+        if (count <= 0) {
+          phase = (phase + 1) % 3;
+          count = breathPhases2[phase].count;
+          updateBreathUI2();
+          updateStepDots('#exercise-breathing-4-7-8', phase + 1);
+        }
+      }, 1000);
+    }
+
+    function updateBreathUI2() {
+      const phase = breathPhases2[phase];
+      $('#breathText2').textContent = phase.text;
+      $('#breathCount2').textContent = phase.count;
+      $('#breathCircle2').style.transform = `scale(${phase.scale})`;
+      $('#breathProgress2').textContent = phase.progress;
+    }
+
+    function stopBreathing2() {
+      if (breathInterval2) {
+        clearInterval(breathInterval2);
+        breathInterval2 = null;
+      }
+      $('#breathText2').textContent = 'ابدأ';
+      $('#breathCount2').textContent = '—';
+      $('#breathCircle2').style.transform = 'scale(1)';
+      $('#breathProgress2').textContent = 'اضغط "ابدأ" للبدء';
+      resetStepDots('#exercise-breathing-4-7-8');
+    }
+
+    // ========== المسح الجسمي ==========
+    const bodyScanSteps = [
+      { step: 1, text: 'ركز على جبينك... اترك أي توتر هناك', duration: 10 },
+      { step: 2, text: 'استرخِ عينيك وفكك... دعهم يرتاحون', duration: 10 },
+      { step: 3, text: 'افكّ أسنانك... استرخِ لسانك وشفتيك', duration: 10 },
+      { step: 4, text: 'استرخِ كتفيك... دعهم يهبطون للأسفل', duration: 10 },
+      { step: 5, text: 'تنفس بعمق... املأ صدرك بالهواء', duration: 10 },
+      { step: 6, text: 'استرخِ يديك... دع أصابعك ترتاح', duration: 10 },
+      { step: 7, text: 'استرخِ ساقيك وقدميك... أطلق كل التوتر', duration: 10 }
+    ];
+
+    function startBodyScan() {
+      if (bodyScanInterval) return;
+      
+      let currentStep = 0;
+      let count = bodyScanSteps[0].duration;
+      
+      $('#bodyScanProgress').textContent = bodyScanSteps[0].text;
+      highlightBodyScanStep(1);
+      
+      bodyScanInterval = setInterval(() => {
+        count--;
+        $('#bodyScanProgress').textContent = `${bodyScanSteps[currentStep].text} (${count})`;
+        
+        if (count <= 0) {
+          currentStep++;
+          if (currentStep < bodyScanSteps.length) {
+            count = bodyScanSteps[currentStep].duration;
+            $('#bodyScanProgress').textContent = bodyScanSteps[currentStep].text;
+            highlightBodyScanStep(currentStep + 1);
+          } else {
+            $('#bodyScanProgress').textContent = '✅ اكتمل التمرين! استرخِ الآن...';
+            clearInterval(bodyScanInterval);
+            bodyScanInterval = null;
+            resetBodyScanSteps();
+          }
+        }
+      }, 1000);
+    }
+
+    function highlightBodyScanStep(stepNum) {
+      $$('.body-scan-step').forEach(s => s.style.background = 'rgba(0,0,0,0.2)');
+      const step = $(`.body-scan-step[data-step="${stepNum}"]`);
+      if (step) step.style.background = 'rgba(124, 141, 176, 0.5)';
+    }
+
+    function resetBodyScanSteps() {
+      $$('.body-scan-step').forEach(s => s.style.background = 'rgba(0,0,0,0.2)');
+    }
+
+    function stopBodyScan() {
+      if (bodyScanInterval) {
+        clearInterval(bodyScanInterval);
+        bodyScanInterval = null;
+      }
+      $('#bodyScanProgress').textContent = 'اضغط "ابدأ" للبدء';
+      resetBodyScanSteps();
     }
 
     // ========== الاسترخاء العضلي ==========
-    function startMuscleRelax() {
-      const steps = $$('.muscle-step');
-      let current = 0;
+    const muscleSteps = [
+      { step: 1, text: 'شد عضلات القدمين بقوة 5 ثواني', duration: 5 },
+      { step: 2, text: 'استرخِ... أحس بالراحة', duration: 3 },
+      { step: 3, text: 'شد عضلات الساقين 5 ثواني', duration: 5 },
+      { step: 4, text: 'استرخِ... أحس بالراحة', duration: 3 },
+      { step: 5, text: 'شد عضلات اليدين 5 ثواني', duration: 5 },
+      { step: 6, text: 'استرخِ... أحس بالراحة', duration: 3 },
+      { step: 7, text: 'شد عضلات الكتفين 5 ثواني', duration: 5 },
+      { step: 8, text: 'استرخِ... أحس بالراحة', duration: 3 },
+      { step: 9, text: 'شد عضلات وجهك 5 ثواني', duration: 5 },
+      { step: 10, text: 'استرخِ... أحس بالراحة في كل جسمك', duration: 5 }
+    ];
+
+    function startMuscle() {
+      if (muscleInterval) return;
       
-      steps.forEach(s => s.style.background = 'rgba(0,0,0,0.2)');
+      let currentStep = 0;
+      let count = muscleSteps[0].duration;
       
-      function nextStep() {
-        if (current > 0) {
-          steps[current - 1].style.background = 'rgba(74, 222, 128, 0.2)';
-        }
+      $('#muscleProgress').textContent = muscleSteps[0].text;
+      highlightMuscleStep(1);
+      
+      muscleInterval = setInterval(() => {
+        count--;
+        $('#muscleProgress').textContent = `${muscleSteps[currentStep].text} (${count})`;
         
-        if (current < steps.length) {
-          steps[current].style.background = 'rgba(124, 141, 176, 0.5)';
-          current++;
-          setTimeout(nextStep, 6000);
+        if (count <= 0) {
+          currentStep++;
+          if (currentStep < muscleSteps.length) {
+            count = muscleSteps[currentStep].duration;
+            $('#muscleProgress').textContent = muscleSteps[currentStep].text;
+            const stepNum = Math.floor(currentStep / 2) + 1;
+            highlightMuscleStep(stepNum);
+          } else {
+            $('#muscleProgress').textContent = '✅ اكتمل التمرين! جسمك مسترخي الآن...';
+            clearInterval(muscleInterval);
+            muscleInterval = null;
+            resetMuscleSteps();
+          }
         }
+      }, 1000);
+    }
+
+    function highlightMuscleStep(stepNum) {
+      $$('.muscle-step').forEach(s => s.style.background = 'rgba(0,0,0,0.2)');
+      const step = $(`.muscle-step[data-step="${stepNum}"]`);
+      if (step) step.style.background = 'rgba(124, 141, 176, 0.5)';
+    }
+
+    function resetMuscleSteps() {
+      $$('.muscle-step').forEach(s => s.style.background = 'rgba(0,0,0,0.2)');
+    }
+
+    function stopMuscle() {
+      if (muscleInterval) {
+        clearInterval(muscleInterval);
+        muscleInterval = null;
+      }
+      $('#muscleProgress').textContent = 'اضغط "ابدأ" للبدء';
+      resetMuscleSteps();
+    }
+
+    // ========== التخيل الموجه ==========
+    let selectedScene = null;
+
+    $$('.scene-card').forEach(card => {
+      card.onclick = () => {
+        $$('.scene-card').forEach(c => c.style.background = 'rgba(0,0,0,0.2)');
+        card.style.background = 'rgba(124, 141, 176, 0.5)';
+        selectedScene = card.dataset.scene;
+        
+        const scene = IMAGINE_SCENES[selectedScene];
+        $('#imagineContent').innerHTML = `
+          <p class="text-white leading-relaxed">${scene.ar.replace(/\n/g, '<br>')}</p>
+          <p class="text-slate-400 mt-4 text-sm leading-relaxed">${scene.en.replace(/\n/g, '<br>')}</p>
+        `;
+      };
+    });
+
+    function startImagine() {
+      if (!selectedScene) {
+        $('#imagineProgress').textContent = 'اختر مشهداً أولاً';
+        return;
       }
       
-      nextStep();
+      if (imagineInterval) return;
+      
+      const scene = IMAGINE_SCENES[selectedScene];
+      let count = 0;
+      
+      imagineInterval = setInterval(() => {
+        count++;
+        $('#imagineProgress').textContent = `استرخِ... استنشق عميقاً (${count})`;
+        
+        if (count >= 60) {
+          $('#imagineProgress').textContent = '✅ انتهى التمرين. أحس بالسلام...';
+          clearInterval(imagineInterval);
+          imagineInterval = null;
+        }
+      }, 1000);
     }
+
+    function stopImagine() {
+      if (imagineInterval) {
+        clearInterval(imagineInterval);
+        imagineInterval = null;
+      }
+      $('#imagineProgress').textContent = '';
+    }
+
+    // ========== روتين النوم ==========
+    const sleepSteps = [
+      { step: 1, text: 'خفف الإضاءة وخلي الجو هادئ حولك', duration: 12 },
+      { step: 2, text: 'أبعد الجوال وركز على تنفسك الهادئ', duration: 12 },
+      { step: 3, text: 'اشرب شيء دافئ يساعدك على الاسترخاء', duration: 12 },
+      { step: 4, text: 'اجلس براحة واسترخِ كتفيك ورقبتك', duration: 12 },
+      { step: 5, text: 'قل لنفسك: أنا آمن وجسمي يستحق الراحة', duration: 12 }
+    ];
+
+    function startSleepRoutine() {
+      if (sleepInterval) return;
+
+      let currentStep = 0;
+      let count = sleepSteps[0].duration;
+
+      $('#sleepProgress').textContent = sleepSteps[0].text;
+      highlightSleepStep(1);
+
+      sleepInterval = setInterval(() => {
+        count--;
+        $('#sleepProgress').textContent = `${sleepSteps[currentStep].text} (${count})`;
+
+        if (count <= 0) {
+          currentStep++;
+          if (currentStep < sleepSteps.length) {
+            count = sleepSteps[currentStep].duration;
+            $('#sleepProgress').textContent = sleepSteps[currentStep].text;
+            highlightSleepStep(currentStep + 1);
+          } else {
+            $('#sleepProgress').textContent = '✅ انتهى الروتين. خذ نفس عميق واستعد للنوم...';
+            clearInterval(sleepInterval);
+            sleepInterval = null;
+            resetSleepSteps();
+          }
+        }
+      }, 1000);
+    }
+
+    function highlightSleepStep(stepNum) {
+      $$('.sleep-step').forEach(s => s.style.background = 'rgba(0,0,0,0.2)');
+      const step = $(`.sleep-step[data-step="${stepNum}"]`);
+      if (step) step.style.background = 'rgba(124, 141, 176, 0.5)';
+    }
+
+    function resetSleepSteps() {
+      $$('.sleep-step').forEach(s => s.style.background = 'rgba(0,0,0,0.2)');
+    }
+
+    function stopSleepRoutine() {
+      if (sleepInterval) {
+        clearInterval(sleepInterval);
+        sleepInterval = null;
+      }
+      $('#sleepProgress').textContent = 'اضغط "ابدأ" للبدء';
+      resetSleepSteps();
+    }
+
+    // ========== دوال مساعدة للتمارين ==========
+    function updateStepDots(containerId, currentStep) {
+      const container = $(containerId);
+      const dots = container.querySelectorAll('.step-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.remove('active', 'completed');
+        if (index + 1 < currentStep) {
+          dot.classList.add('completed');
+        } else if (index + 1 === currentStep) {
+          dot.classList.add('active');
+        }
+      });
+    }
+
+    function resetStepDots(containerId) {
+      const container = $(containerId);
+      const dots = container.querySelectorAll('.step-dot');
+      dots.forEach(dot => dot.classList.remove('active', 'completed'));
+    }
+
+    // ========== تبويبات الألعاب ==========
+    $$('.game-tab').forEach(tab => {
+      tab.onclick = () => {
+        $$('.game-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        const gameId = tab.dataset.game;
+        $$('.game-content').forEach(c => c.classList.add('hidden'));
+        $(`#game-${gameId}`).classList.remove('hidden');
+      };
+    });
 
     // ========== لعبة الذاكرة ==========
     function initMemoryGame() {
@@ -1338,6 +2290,13 @@
         ctx.fillStyle = '#1e293b';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       };
+      
+      $('#saveCanvas').onclick = () => {
+        const link = document.createElement('a');
+        link.download = 'رسمتي.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      };
     }
 
     // ========== لعبة الفقاعات ==========
@@ -1377,6 +2336,157 @@
         if (bubble.parentNode) bubble.remove();
       }, 5000);
     }
+
+    // ========== لعبة ترتيب الأرقام ==========
+    function initNumbersGame() {
+      numbers = Array.from({ length: 10 }, (_, i) => i + 1);
+      numbers.sort(() => Math.random() - 0.5);
+      currentNumber = 1;
+      $('#nextNumber').textContent = currentNumber;
+      
+      const container = $('#numbersGame');
+      container.innerHTML = '';
+      
+      numbers.forEach(num => {
+        const tile = document.createElement('div');
+        tile.className = 'number-tile';
+        tile.textContent = num;
+        tile.dataset.number = num;
+        tile.onclick = () => handleNumberClick(tile, num);
+        container.appendChild(tile);
+      });
+    }
+
+    function handleNumberClick(tile, num) {
+      if (num === currentNumber) {
+        tile.classList.add('correct');
+        currentNumber++;
+        $('#nextNumber').textContent = currentNumber > 10 ? '✅' : currentNumber;
+        
+        if (currentNumber > 10) {
+          $('#nextNumber').textContent = '✅ أكملت!';
+        }
+      }
+    }
+
+    function resetNumbers() {
+      initNumbersGame();
+      $('#numbersTimer').textContent = '00:00';
+    }
+
+    // ========== لعبة الكلمات الإيجابية ==========
+    function initWordsGame() {
+      const shuffledWords = [...POSITIVE_WORDS].sort(() => Math.random() - 0.5).slice(0, 15);
+      selectedWords = [];
+      $('#selectedWords').textContent = '0';
+      $('#selectedWordsList').innerHTML = '';
+      
+      const container = $('#wordsGame');
+      container.innerHTML = '';
+      
+      shuffledWords.forEach(word => {
+        const bubble = document.createElement('span');
+        bubble.className = 'word-bubble';
+        bubble.textContent = word;
+        bubble.onclick = () => selectWord(bubble, word);
+        container.appendChild(bubble);
+      });
+    }
+
+    function selectWord(bubble, word) {
+      if (selectedWords.includes(word)) return;
+      if (selectedWords.length >= 10) return;
+      
+      bubble.classList.add('selected');
+      selectedWords.push(word);
+      $('#selectedWords').textContent = selectedWords.length;
+      
+      const tag = document.createElement('span');
+      tag.className = 'bg-green-500/30 text-green-300 px-2 py-1 rounded-full text-sm';
+      tag.textContent = word;
+      $('#selectedWordsList').appendChild(tag);
+    }
+
+    function resetWords() {
+      initWordsGame();
+    }
+
+    // ========== لعبة الراحة اليومية ==========
+    let relaxInterval = null;
+
+    function initRelaxGame() {
+      const today = new Date().toDateString();
+      const savedExercise = JSON.parse(localStorage.getItem('dailyRelax') || '{}');
+      
+      let exercise;
+      if (savedExercise.date === today && !savedExercise.reset) {
+        exercise = DAILY_RELAX_EXERCISES[savedExercise.index];
+      } else {
+        const index = Math.floor(Math.random() * DAILY_RELAX_EXERCISES.length);
+        exercise = DAILY_RELAX_EXERCISES[index];
+        localStorage.setItem('dailyRelax', JSON.stringify({ date: today, index, reset: false }));
+      }
+      
+      $('#relaxEmoji').textContent = exercise.emoji;
+      $('#relaxText').textContent = exercise.ar + '\n' + exercise.en;
+      $('#relaxTimer').textContent = formatTime(exercise.duration);
+      
+      $('#relaxContent').dataset.ar = exercise.ar;
+      $('#relaxContent').dataset.en = exercise.en;
+      $('#relaxContent').dataset.duration = exercise.duration;
+    }
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function startRelax() {
+      if (relaxInterval) return;
+      
+      let remaining = parseInt($('#relaxContent').dataset.duration);
+      const ar = $('#relaxContent').dataset.ar;
+      const en = $('#relaxContent').dataset.en;
+      
+      $('#relaxText').innerHTML = ar + '<br><span class="text-slate-400 text-sm">' + en + '</span>';
+      
+      relaxInterval = setInterval(() => {
+        remaining--;
+        $('#relaxTimer').textContent = formatTime(remaining);
+        
+        if (remaining <= 0) {
+          $('#relaxText').innerHTML = '✅ انتهى التمرين<br><span class="text-slate-400 text-sm">Exercise complete</span>';
+          $('#relaxTimer').textContent = '🌸';
+          clearInterval(relaxInterval);
+          relaxInterval = null;
+        }
+      }, 1000);
+    }
+
+    function resetRelax() {
+      if (relaxInterval) {
+        clearInterval(relaxInterval);
+        relaxInterval = null;
+      }
+      const saved = JSON.parse(localStorage.getItem('dailyRelax') || '{}');
+      saved.reset = true;
+      localStorage.setItem('dailyRelax', JSON.stringify(saved));
+      initRelaxGame();
+    }
+
+    // ========== لعبة الألوان ==========
+    $$('.color-circle').forEach(circle => {
+      circle.onclick = () => {
+        const color = circle.dataset.color;
+        const message = COLOR_MESSAGES[color];
+        const lang = currentLang === 'ar' ? 'ar' : 'en';
+        
+        $('#colorMessage').innerHTML = `
+          <p class="text-white">${message[lang]}</p>
+        `;
+      };
+    });
 
     // ========== التواصل ==========
     function handleContact(e) {
@@ -1436,7 +2546,7 @@
     }
 
     // ========== تسجيل دخول الأدمن ==========
-    const ADMIN_PASSWORD = 'admin123'; // غيّر كلمة المرور هنا
+    const ADMIN_PASSWORD = 'admin123';
 
     function handleAdminLogin(e) {
       e.preventDefault();
@@ -1473,6 +2583,14 @@
       }
     }
 
+    function showAdminSection() {
+      $('#admin').style.display = 'block';
+      closeMenu();
+      setTimeout(() => {
+        $('#admin').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+
     // ========== القائمة ==========
     function toggleMenu() {
       $('#mobileMenu').classList.toggle('open');
@@ -1481,6 +2599,21 @@
     function closeMenu() {
       $('#mobileMenu').classList.remove('open');
     }
+
+    // إغلاق فوري عند النقر
+    $('#closeMenu').onclick = function() {
+      closeMenu();
+    };
+    
+    // تحسين استجابة القائمة
+    $$('#mobileMenu a, #mobileMenu button').forEach(el => {
+      el.addEventListener('click', () => {
+        closeMenu();
+      });
+      el.addEventListener('touchstart', () => {
+        closeMenu();
+      }, { passive: true });
+    });
 
     // ========== كتم الصوت ==========
     function toggleMute() {
@@ -1498,8 +2631,6 @@
     }
 
     // ========== تغيير اللغة ==========
-    let currentLang = 'ar';
-    
     function toggleLanguage() {
       currentLang = currentLang === 'ar' ? 'en' : 'ar';
       $('#langBtn').textContent = currentLang === 'ar' ? 'EN' : 'AR';
@@ -1514,22 +2645,52 @@
       showQuote();
       loadChat();
       initMemoryGame();
+      initNumbersGame();
+      initWordsGame();
+      initRelaxGame();
       loadMessages();
+      
+      // تشغيل الصوت مباشرة ومحاولة فك القفل عند أي تفاعل
+      initAudio();
+      ensureAudioStarted();
+      attachAudioUnlockListeners();
       
       // الأحداث
       $('#chatForm').onsubmit = handleChat;
       $('#clearChat').onclick = clearChat;
       $('#speakQuote').onclick = speakQuote;
       $('#newQuote').onclick = newQuote;
-      $('#startBreath').onclick = startBreathing;
-      $('#stopBreath').onclick = stopBreathing;
-      $('#startMuscle').onclick = startMuscleRelax;
+      
+      // تمارين التنفس
+      $('#startBreath1').onclick = startBreathing1;
+      $('#stopBreath1').onclick = stopBreathing1;
+      $('#startBreath2').onclick = startBreathing2;
+      $('#stopBreath2').onclick = stopBreathing2;
+      
+      // تمارين أخرى
+      $('#startBodyScan').onclick = startBodyScan;
+      $('#stopBodyScan').onclick = stopBodyScan;
+      $('#startMuscle').onclick = startMuscle;
+      $('#stopMuscle').onclick = stopMuscle;
+      $('#startImagine').onclick = startImagine;
+      $('#stopImagine').onclick = stopImagine;
+      $('#startSleep').onclick = startSleepRoutine;
+      $('#stopSleep').onclick = stopSleepRoutine;
+      
+      // الألعاب
       $('#resetMemory').onclick = initMemoryGame;
-      $('#startBubbles').onclick = startBubbles;
+      $('#resetNumbers').onclick = resetNumbers;
+      $('#resetWords').onclick = resetWords;
+      $('#startRelax').onclick = startRelax;
+      $('#resetRelax').onclick = resetRelax;
+      
+      // التواصل
       $('#contactForm').onsubmit = handleContact;
       $('#adminLoginForm').onsubmit = handleAdminLogin;
       $('#clearMessages').onclick = clearMessages;
       $('#adminLogout').onclick = handleAdminLogout;
+      
+      // القائمة والصوت واللغة
       $('#menuBtn').onclick = toggleMenu;
       $('#closeMenu').onclick = closeMenu;
       $('#muteBtn').onclick = toggleMute;
@@ -1543,11 +2704,6 @@
       
       // تهيئة الرسم
       setTimeout(initCanvas, 100);
-      
-      // تشغيل الصوت عند أول تفاعل
-      document.body.addEventListener('click', () => {
-        initAudio();
-      }, { once: true });
       
       // CSS للفقاعات
       const style = document.createElement('style');
